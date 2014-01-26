@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Customer administration</title>
+</h:head>
+
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="content">
+		<h:messages globalOnly="true" />
+
+		<h:form id="loginbutton">
+			<h:commandButton value="Login" id="username"
+				action="#{authenticationController.loginWithRealm}" />
+			<h:message for="username" />
+		</h:form>
+
+		<br />
+
+		<h:form>
+			<h:commandButton value="Logout"
+				action="#{authenticationController.logout}" />
+		</h:form>
+
+		<form action="j_security_check" method="post">
+			<h:outputLabel for="j_username" value="Username" />
+			<h:inputText id="j_username" />
+			<br />
+			<h:outputLabel for="j_password" value="Password" />
+			<h:inputSecret id="j_password" />
+			<br />
+			<h:commandButton value="Login" />
+		</form>
+
+		<h:form>
+			<h:outputLabel value="Login:" />
+			<h:inputText
+				value="#{authenticationController.userWhoWantsToLoginUsername}" />
+
+			<h:outputLabel value="Password:" />
+			<h:inputText
+				value="#{authenticationController.userWhoWantsToLoginPassword}" />
+
+			<h:selectBooleanCheckbox id="remember" required="true"
+				value="#{authenticationController.userWhoWantsToLoginWantsToBeRemembered}" />
+
+			<h:commandButton value="Login" id="username"
+				action="#{authenticationController.loginWithUserNameAndPassword()}" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</h:html>

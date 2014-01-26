@@ -1,0 +1,40 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="title">Track in Album</ui:define>
+	<ui:define name="content">
+		<ui:include src="/resources/templates/basic/basic_form.xhtml">
+			<ui:param name="header"
+				value="#{albumController.getAlbumById((param['albumId'])).name}" />
+		</ui:include>
+
+		<p>
+			<b>Release year:</b>
+			#{albumController.getAlbumById((param['albumId'])).releaseYear}
+		</p>
+		<p>
+			<b>Information:</b>
+			#{albumController.getAlbumById((param['albumId'])).description}
+		</p>
+		<h3>Tracks</h3>
+		<h:dataTable binding="#{table}"
+			value="#{trackController.getTracksByAlbumId((param['albumId']))}"
+			var="record">
+			<h:column>#{table.rowIndex + 1}. </h:column>
+			<h:column>
+				<h:outputText value="#{record.name}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+
+		<br />
+		<h:link value="Check If it exist in our stores >>"
+			outcome="/pages/product/showProductByAlbum.xhtml">
+			<f:param name="albumId" value="#{(param['albumId'])}" />
+		</h:link>
+
+	</ui:define>
+</ui:composition>
+</h:html>
