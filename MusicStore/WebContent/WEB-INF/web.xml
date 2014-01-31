@@ -16,12 +16,14 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	
 	<login-config>
 		<auth-method>FORM</auth-method>
-		<realm-name>file</realm-name>
+		<realm-name>jdbcRealm</realm-name>
 		<form-login-config>
 			<form-login-page>/pages/auth/login.html</form-login-page>
 			<form-error-page>/pages/auth/error.html</form-error-page>
 		</form-login-config>
 	</login-config>
-</web-app>
+	
+</web-app> 

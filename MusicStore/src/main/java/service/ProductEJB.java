@@ -30,7 +30,7 @@ public class ProductEJB extends AbstractFacade<Product> {
 	 *            of an album
 	 * @return List of products which contain album
 	 */
-	public List<Product> getProductsByAlbumId(long id) {
+	public List<Product> getProductsByAlbumId(final long id) {
 		List<Product> all = findAll();
 		List<Product> productsWithAlbumId = new ArrayList<>();
 		for (Product product : all) {

@@ -29,7 +29,7 @@ public class Store implements Serializable, EntityInterface {
 	private Long id;
 	private String name;
 
-	@OneToMany(mappedBy = "storeInWhichLocated", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "storeInWhichLocated", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Product> products;
 
 	public Store() {
@@ -41,7 +41,7 @@ public class Store implements Serializable, EntityInterface {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -49,7 +49,7 @@ public class Store implements Serializable, EntityInterface {
 		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -57,7 +57,7 @@ public class Store implements Serializable, EntityInterface {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(final List<Product> products) {
 		this.products = products;
 	}
 
@@ -65,21 +65,25 @@ public class Store implements Serializable, EntityInterface {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = (prime * result) + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Store other = (Store) obj;
-		if (id != other.id)
+		if (id != other.id) {
 			return false;
+		}
 		return true;
 	}
 

@@ -1,7 +1,0 @@
-util\fem\FakeEntityManagerTest.class
-util\FakeEntity.class
-util\fem\FakeEntityManager.class
-util\FakeEntityEJB.class
-util\fem\FakeTypedQuery.class
-service\abstractions\AbstractFacadeTest.class
-util\fem\FakeQuery.class

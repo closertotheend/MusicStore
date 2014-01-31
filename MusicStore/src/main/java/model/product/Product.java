@@ -8,7 +8,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import model.Album;
@@ -22,6 +21,10 @@ import model.abstractions.EntityInterface;
 public class Product implements Serializable, EntityInterface {
 	private static final long serialVersionUID = 1L;
 
+	public Product() {
+		super();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,34 +32,30 @@ public class Product implements Serializable, EntityInterface {
 	private int quantity;
 
 	@ManyToOne
-	@JoinColumn(name = "ALBUM_ID")
+	// @JoinColumn(name = "ALBUM_ID")
 	private Album album;
 
 	@Enumerated(EnumType.STRING)
 	private ProductType albumType;
 
 	@ManyToOne
-	@JoinColumn(name = "STORE_ID", nullable = false)
+	// @JoinColumn(name = "STORE_ID")
 	private Store storeInWhichLocated;
-
-	public Product() {
-		super();
-	}
 
 	@Override
 	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
-	public EntityInterface getAlbum() {
+	public Album getAlbum() {
 		return this.album;
 	}
 
-	public void setAlbum(Album album) {
+	public void setAlbum(final Album album) {
 		this.album = album;
 	}
 
@@ -64,7 +63,7 @@ public class Product implements Serializable, EntityInterface {
 		return albumType;
 	}
 
-	public void setAlbumType(ProductType albumType) {
+	public void setAlbumType(final ProductType albumType) {
 		this.albumType = albumType;
 	}
 
@@ -72,7 +71,7 @@ public class Product implements Serializable, EntityInterface {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(final int quantity) {
 		this.quantity = quantity;
 	}
 
@@ -80,7 +79,7 @@ public class Product implements Serializable, EntityInterface {
 		return storeInWhichLocated;
 	}
 
-	public void setStoreInWhichLocated(Store storeInWhichLocated) {
+	public void setStoreInWhichLocated(final Store storeInWhichLocated) {
 		this.storeInWhichLocated = storeInWhichLocated;
 	}
 
@@ -88,28 +87,34 @@ public class Product implements Serializable, EntityInterface {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((album == null) ? 0 : album.hashCode());
-		result = prime * result
+		result = (prime * result) + ((album == null) ? 0 : album.hashCode());
+		result = (prime * result)
 				+ ((albumType == null) ? 0 : albumType.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Product other = (Product) obj;
 		if (album == null) {
-			if (other.album != null)
+			if (other.album != null) {
 				return false;
-		} else if (!album.equals(other.album))
+			}
+		} else if (!album.equals(other.album)) {
 			return false;
-		if (albumType != other.albumType)
+		}
+		if (albumType != other.albumType) {
 			return false;
+		}
 		return true;
 	}
 

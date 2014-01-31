@@ -8,10 +8,11 @@
 	<ui:define name="content">
 		<ui:include src="/resources/templates/basic/basic_form.xhtml">
 			<ui:param name="header"
-				value="#{artistController.getArtistById((param['artistId'])).name}" />
+				value="#{artistController.artist.name}" />
 		</ui:include>
+		<h:inputHidden  value="#{artistController.setArtist(artistController.getArtistById((param['artistId'])))}"/>
 		<h:outputText
-			value="#{artistController.getArtistById((param['artistId'])).description}" />
+			value="#{artistController.artist.description}" />
 
 		<h4>Their Albums:</h4>
 		<h:dataTable

@@ -20,4 +20,9 @@ public class StoreEJB extends AbstractFacade<Store> {
 		super(Store.class);
 	}
 
+	@Override
+	public void create(final Store entity) {
+		super.create(entity);
+	}
+
 }

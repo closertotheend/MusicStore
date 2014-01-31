@@ -29,7 +29,7 @@ public abstract class AbstractFacade<T extends EntityInterface> {
 	/**
 	 * @return injected EntityManager
 	 */
-	protected EntityManager getEm() {
+	public EntityManager getEm() {
 		return em;
 	}
 
@@ -64,7 +64,12 @@ public abstract class AbstractFacade<T extends EntityInterface> {
 	 * 
 	 */
 	public void delete(final T entity) {
-		getEm().remove(entity);
+		try {
+			getEm().remove(getEm().merge(entity));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

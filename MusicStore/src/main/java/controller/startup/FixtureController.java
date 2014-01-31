@@ -11,6 +11,7 @@ import model.Album;
 import model.Artist;
 import model.Store;
 import model.Track;
+import model.authentication.User;
 import model.product.Product;
 import model.product.ProductType;
 import service.AlbumEJB;
@@ -18,6 +19,7 @@ import service.ArtistEJB;
 import service.ProductEJB;
 import service.StoreEJB;
 import service.TrackEJB;
+import service.UserEJB;
 
 /**
  * @author ilja Uses for generating fixture data.
@@ -41,6 +43,9 @@ public class FixtureController implements Serializable {
 
 	@Inject
 	private ProductEJB productEJB;
+
+	@Inject
+	private UserEJB userEJB;
 
 	public void generate() {
 		// STORES
@@ -124,6 +129,13 @@ public class FixtureController implements Serializable {
 		hell.setName("Run Like Hell");
 		hell.setArtists(authors);
 		trackEJB.create(hell);
+
+		Track imAlive = new Track();
+		imAlive.setName("I am alive");
+		HashSet<Artist> pod = new HashSet<>();
+		pod.add(POD);
+		imAlive.setArtists(pod);
+		trackEJB.create(imAlive);
 		// TRACKS END
 
 		// ALBUMS START
@@ -159,6 +171,11 @@ public class FixtureController implements Serializable {
 		theWallLP.setAlbumType(ProductType.LP);
 		productEJB.create(theWallLP);
 		// PRODUCTS END
+
+		User user = new User();
+		user.setUsername("ilja");
+		user.setPassword("e10adc3949ba59abbe56e057f20f883e");
+		userEJB.create(user);
 	}
 
 	public ArtistEJB getArtistEJB() {
@@ -199,6 +216,14 @@ public class FixtureController implements Serializable {
 
 	public void setProductEJB(final ProductEJB productEJB) {
 		this.productEJB = productEJB;
+	}
+
+	public UserEJB getUserEJB() {
+		return userEJB;
+	}
+
+	public void setUserEJB(final UserEJB userEJB) {
+		this.userEJB = userEJB;
 	}
 
 }

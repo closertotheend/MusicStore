@@ -12,29 +12,13 @@
 	<ui:define name="content">
 		<h:messages globalOnly="true" />
 
-		<h:form id="loginbutton">
-			<h:commandButton value="Login" id="username"
-				action="#{authenticationController.loginWithRealm}" />
-			<h:message for="username" />
-		</h:form>
-
-		<br />
-
 		<h:form>
 			<h:commandButton value="Logout"
 				action="#{authenticationController.logout}" />
 		</h:form>
 
-		<form action="j_security_check" method="post">
-			<h:outputLabel for="j_username" value="Username" />
-			<h:inputText id="j_username" />
-			<br />
-			<h:outputLabel for="j_password" value="Password" />
-			<h:inputSecret id="j_password" />
-			<br />
-			<h:commandButton value="Login" />
-		</form>
 
+		
 		<h:form>
 			<h:outputLabel value="Login:" />
 			<h:inputText
@@ -48,9 +32,10 @@
 				value="#{authenticationController.userWhoWantsToLoginWantsToBeRemembered}" />
 
 			<h:commandButton value="Login" id="username"
-				action="#{authenticationController.loginWithUserNameAndPassword()}" />
+				action="#{authenticationController.progLogin()}" />
 
 		</h:form>
+
 	</ui:define>
 </ui:composition>
 </h:html>

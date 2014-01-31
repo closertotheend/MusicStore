@@ -3,7 +3,6 @@ package controller.authentication;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,27 +24,14 @@ public class AuthenticationController implements Serializable {
 	private String userWhoWantsToLoginPassword;
 	private boolean userWhoWantsToLoginWantsToBeRemembered;
 
-	public void loginWithRealm() {
-		boolean loginWasSuccesful = authenticationEJB.loginWithRealm();
-		FacesContext context = FacesContext.getCurrentInstance();
-		if (loginWasSuccesful == false) {
-			FacesMessage facesMessage = new FacesMessage(
-					"There was problems with logging in!");
-			context.addMessage("loginbutton:username", facesMessage);
-			context.addMessage(null, facesMessage);
-		}
-	}
-
-	public boolean loginWithUserNameAndPassword() {
-		boolean loginSucceeded = authenticationEJB
-				.loginWithUserNameAndPassword(userWhoWantsToLoginUsername,
-						userWhoWantsToLoginPassword);
-		return loginSucceeded;
-	}
-
 	public void logout() {
 		FacesContext.getCurrentInstance().getExternalContext()
 				.invalidateSession();
+	}
+
+	public void progLogin() {
+		authenticationEJB.login(userWhoWantsToLoginUsername,
+				userWhoWantsToLoginPassword);
 	}
 
 	public AuthenticationEJB getAuthenticationEJB() {

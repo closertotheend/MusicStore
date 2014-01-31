@@ -2,6 +2,7 @@ package controller;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.context.SessionScoped;
@@ -12,6 +13,7 @@ import model.Artist;
 import model.Track;
 import service.AlbumEJB;
 import service.TrackEJB;
+import controller.util.AddressHelper;
 import controller.util.MessagesHelper;
 
 /**
@@ -31,10 +33,8 @@ public class TrackController implements Serializable {
 
 	private Track trackToBeCreated;
 	private Artist artistOfAlbumWhoWillBeAdded;
+	private Track editedTrack;
 
-	/**
-	 * Persists track and shows success message
-	 */
 	public void save() {
 		trackEJB.create(trackToBeCreated);
 		MessagesHelper.INSTANCE.showCreatedSuccessfullyMessage("track");
@@ -56,6 +56,33 @@ public class TrackController implements Serializable {
 
 	public void removeArtist(final Artist a) {
 		getTrackToBeCreated().getArtists().remove(a);
+	}
+
+	public void deleteTrackById(final long id) {
+		Track trackWithId = trackEJB.find(id);
+		trackEJB.delete(trackWithId);
+	}
+
+	public List<Track> getAll() {
+		return trackEJB.findAll();
+	}
+
+	public String setEditedTrackById(final long id) {
+		Track trackWithId = trackEJB.find(id);
+		setEditedTrack(trackWithId);
+		return AddressHelper.trackEditPage;
+	}
+
+	public void removeArtistFromEditedTrack(final Artist a) {
+		getEditedTrack().getArtists().remove(a);
+	}
+
+	public void saveEditedTrack() {
+		trackEJB.update(editedTrack);
+	}
+
+	public void addArtistToEditedTrack() {
+		getEditedTrack().getArtists().add(artistOfAlbumWhoWillBeAdded);
 	}
 
 	// GETTERS SETTERS
@@ -93,6 +120,14 @@ public class TrackController implements Serializable {
 
 	public void setAlbumEJB(final AlbumEJB albumEJB) {
 		this.albumEJB = albumEJB;
+	}
+
+	public Track getEditedTrack() {
+		return editedTrack;
+	}
+
+	public void setEditedTrack(final Track editedTrack) {
+		this.editedTrack = editedTrack;
 	}
 
 }

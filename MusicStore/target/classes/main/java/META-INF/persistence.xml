@@ -10,7 +10,7 @@
 		<class>model.Track</class>
 		<class>model.Album</class>
 		<class>model.product.Product</class>
-		<class>model.product.Label</class>
+		<class>model.authentication.Role</class>
 		<properties>
 			<!-- use this property if target server is GlassFish V3 with EclipseLink -->
 			<property name="javax.persistence.schema-generation.database.action"
@@ -19,7 +19,7 @@
 	</persistence-unit>
 	
 	<persistence-unit name="TEST">
-		<class>util.FakeEntity</class>
+		<class>testutil.FakeEntity</class>
 		<!-- APACHE DERBY -->
 		<!-- <properties> <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" 
 			/> <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:chapter04DB;create=true" 

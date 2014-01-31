@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import model.Artist;
 import service.ArtistEJB;
+import controller.util.AddressHelper;
 import controller.util.MessagesHelper;
 
 /**
@@ -21,28 +22,41 @@ public class ArtistController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Artist artistToBeCreated;
+	private Artist editedArtist;
+	private Artist artist;
 
 	@Inject
 	private ArtistEJB artistEJB;
 
-	/**
-	 * Saves artist and shows message
-	 */
 	public void save() {
 		getArtistEJB().create(getArtistToBeCreated());
 		MessagesHelper.INSTANCE.showCreatedSuccessfullyMessage("artist");
 	}
 
-	/**
-	 * @return all Artists from database
-	 */
 	public List<Artist> getAll() {
 		return getArtistEJB().findAll();
 	}
 
-	public Artist getArtistById(long id) {
+	public Artist getArtistById(final long id) {
 		return artistEJB.find(id);
 	}
+
+	public void deleteArtistById(final long id) {
+		Artist artistWithId = artistEJB.find(id);
+		artistEJB.delete(artistWithId);
+	}
+
+	public String setEditedArtistById(final long id) {
+		Artist artistWithId = artistEJB.find(id);
+		editedArtist = artistWithId;
+		return AddressHelper.artistEditPage;
+	}
+
+	public void saveEditedArtist() {
+		artistEJB.update(editedArtist);
+	}
+
+	// GETTERS SETTERS
 
 	public Artist getArtistToBeCreated() {
 		if (artistToBeCreated == null) {
@@ -52,7 +66,7 @@ public class ArtistController implements Serializable {
 		return artistToBeCreated;
 	}
 
-	public void setArtistToBeCreated(Artist artistToBeCreated) {
+	public void setArtistToBeCreated(final Artist artistToBeCreated) {
 		this.artistToBeCreated = artistToBeCreated;
 	}
 
@@ -60,8 +74,24 @@ public class ArtistController implements Serializable {
 		return artistEJB;
 	}
 
-	public void setArtistEJB(ArtistEJB artistEJB) {
+	public void setArtistEJB(final ArtistEJB artistEJB) {
 		this.artistEJB = artistEJB;
+	}
+
+	public Artist getEditedArtist() {
+		return editedArtist;
+	}
+
+	public void setEditedArtist(final Artist editedArtist) {
+		this.editedArtist = editedArtist;
+	}
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
 	}
 
 }

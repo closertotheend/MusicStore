@@ -7,43 +7,26 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import service.abstractions.AbstractFacade;
-import util.FakeEntity;
-import util.FakeEntityEJB;
+import testutil.FakeEntity;
+import testutil.FakeEntityEJB;
+import testutil.IntegrationTestBase;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AbstractFacadeIntegrationTest {
+public class AbstractFacadeIntegrationTest extends IntegrationTestBase {
 
 	private static final AbstractFacade<FakeEntity> abstractFacade = spy(new FakeEntityEJB());
 	private final FakeEntity entity = new FakeEntity(13);
 	private final FakeEntity entity2 = new FakeEntity(14);
 	private final FakeEntity entity3 = new FakeEntity(15);
-	private static final EntityManager fakeEm = Persistence
-			.createEntityManagerFactory("TEST").createEntityManager();
 
 	@BeforeClass
 	public static void initBehaviour() {
 		when(abstractFacade.getEm()).thenReturn(fakeEm);
-	}
-
-	@Before
-	public void init() {
-		abstractFacade.getEm().getTransaction().begin();
-	}
-
-	@After
-	public void after() {
-		abstractFacade.getEm().getTransaction().rollback();
 	}
 
 	@Test

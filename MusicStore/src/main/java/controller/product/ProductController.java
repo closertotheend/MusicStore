@@ -39,8 +39,16 @@ public class ProductController implements Serializable {
 		MessagesHelper.INSTANCE.showCreatedSuccessfullyMessage("product");
 	}
 
-	public List<Product> getProductsByAlbumId(long id) {
+	public List<Product> getProductsByAlbumId(final long id) {
 		return productEJB.getProductsByAlbumId(id);
+	}
+
+	public List<Product> getAll() {
+		return productEJB.findAll();
+	}
+
+	public void delete(final long id) {
+		productEJB.delete(productEJB.find(id));
 	}
 
 	// Getters Setters
@@ -53,7 +61,7 @@ public class ProductController implements Serializable {
 		return productToBeCreated;
 	}
 
-	public void setProductToBeCreated(Product storeToBeCreated) {
+	public void setProductToBeCreated(final Product storeToBeCreated) {
 		this.productToBeCreated = storeToBeCreated;
 	}
 
@@ -61,7 +69,7 @@ public class ProductController implements Serializable {
 		return artistEJB;
 	}
 
-	public void setArtistEJB(ArtistEJB artistEJB) {
+	public void setArtistEJB(final ArtistEJB artistEJB) {
 		this.artistEJB = artistEJB;
 	}
 
@@ -69,7 +77,7 @@ public class ProductController implements Serializable {
 		return authorOfAlbum;
 	}
 
-	public void setAuthorOfAlbum(Artist authorOfAlbum) {
+	public void setAuthorOfAlbum(final Artist authorOfAlbum) {
 		this.authorOfAlbum = authorOfAlbum;
 	}
 

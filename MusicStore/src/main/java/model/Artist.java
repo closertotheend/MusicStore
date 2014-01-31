@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class Artist implements Serializable, EntityInterface {
 	@ManyToMany(mappedBy = "artists")
 	private Set<Album> albums = new HashSet<>();
 
-	@ManyToMany(mappedBy = "artists")
+	@ManyToMany(mappedBy = "artists", cascade = CascadeType.REMOVE)
 	private Set<Track> tracks = new HashSet<>();
 
 	@Override
@@ -51,7 +52,7 @@ public class Artist implements Serializable, EntityInterface {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -59,7 +60,7 @@ public class Artist implements Serializable, EntityInterface {
 		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -67,7 +68,7 @@ public class Artist implements Serializable, EntityInterface {
 		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -75,7 +76,7 @@ public class Artist implements Serializable, EntityInterface {
 		return this.albums;
 	}
 
-	public void setAlbums(Set<Album> albums) {
+	public void setAlbums(final Set<Album> albums) {
 		this.albums = albums;
 	}
 
@@ -83,7 +84,7 @@ public class Artist implements Serializable, EntityInterface {
 		return tracks;
 	}
 
-	public void setTracks(Set<Track> tracks) {
+	public void setTracks(final Set<Track> tracks) {
 		this.tracks = tracks;
 	}
 
@@ -91,21 +92,25 @@ public class Artist implements Serializable, EntityInterface {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = (prime * result) + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Artist other = (Artist) obj;
-		if (id != other.id)
+		if (id != other.id) {
 			return false;
+		}
 		return true;
 	}
 

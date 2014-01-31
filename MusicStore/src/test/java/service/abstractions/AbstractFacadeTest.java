@@ -17,9 +17,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import util.FakeEntity;
-import util.FakeEntityEJB;
-import util.fem.FakeEntityManager;
+import testutil.FakeEntity;
+import testutil.FakeEntityEJB;
+import testutil.fem.FakeEntityManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbstractFacadeTest {

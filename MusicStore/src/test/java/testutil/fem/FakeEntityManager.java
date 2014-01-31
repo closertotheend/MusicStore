@@ -1,0 +1,394 @@
+package testutil.fem;
+
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
+import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.metamodel.Metamodel;
+
+import model.abstractions.EntityInterface;
+
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
+public class FakeEntityManager implements EntityManager {
+	public FakeEntityManager() {
+		memoryDatabase.clear();
+	}
+
+	private final static Collection<EntityInterface> memoryDatabase = new ArrayList<>();
+
+	@Override
+	public void persist(final Object entity) {
+		memoryDatabase.add((EntityInterface) entity);
+	}
+
+	@Override
+	public boolean contains(final Object entity) {
+		return memoryDatabase.contains(entity);
+	}
+
+	@Override
+	public void remove(final Object entity) {
+		memoryDatabase.remove(entity);
+	}
+
+	@Override
+	public <T> T find(final Class<T> entityClass, final Object primaryKey) {
+		Long key = (long) primaryKey;
+		for (EntityInterface iter : memoryDatabase) {
+			if ((iter.getId() == key) && entityClass.equals(iter.getClass())) {
+				return (T) iter;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public <T> TypedQuery<T> createQuery(final String qlString,
+			final Class<T> resultClass) {
+		String findAllQuery = "SELECT e FROM " + resultClass.getName() + " e";
+		if (qlString.equals(findAllQuery)) {
+			FakeTypedQuery<T> fakeTypedQuery = spy(new FakeTypedQuery<T>());
+			List<T> findAllResultList = new ArrayList<T>();
+			for (EntityInterface iter : memoryDatabase) {
+				if (resultClass.equals(iter.getClass())) {
+					findAllResultList.add((T) iter);
+				}
+			}
+			when(fakeTypedQuery.getResultList()).thenReturn(findAllResultList);
+			return fakeTypedQuery;
+		}
+		return null;
+	}
+
+	@Override
+	public Query createQuery(final String qlString) {
+		String countQueryBeginning = "select count(e) from ";
+		String countQueryEnding = " as e";
+		if (qlString.contains(countQueryBeginning)
+				&& qlString.contains(countQueryEnding)) {
+
+			String substringWithEnding = qlString.substring(countQueryBeginning
+					.length());
+			String nameOfEntityFromQuery = substringWithEnding.substring(0,
+					substringWithEnding.indexOf(" "));
+
+			long counter = 0;
+			for (EntityInterface iter : memoryDatabase) {
+				// XXX: maybe findAll query would be better???
+				if (iter.getClass().getName().equals(nameOfEntityFromQuery)) {
+					counter++;
+				}
+			}
+			Query fakeQuery = spy(new FakeQuery());
+			when(fakeQuery.getSingleResult()).thenReturn(new Long(counter));
+			return fakeQuery;
+		}
+		return null;
+	}
+
+	@Override
+	public <T> T merge(final T entity) {
+		return entity;
+	}
+
+	@Override
+	public void flush() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public <T> T unwrap(final Class<T> cls) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProperty(final String propertyName, final Object value) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setFlushMode(final FlushModeType flushMode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void refresh(final Object entity, final LockModeType lockMode,
+			final Map<String, Object> properties) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void refresh(final Object entity, final LockModeType lockMode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void refresh(final Object entity,
+			final Map<String, Object> properties) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void refresh(final Object entity) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void lock(final Object entity, final LockModeType lockMode,
+			final Map<String, Object> properties) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void lock(final Object entity, final LockModeType lockMode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void joinTransaction() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean isOpen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isJoinedToTransaction() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public EntityTransaction getTransaction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T getReference(final Class<T> entityClass,
+			final Object primaryKey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getProperties() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Metamodel getMetamodel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LockModeType getLockMode(final Object entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public FlushModeType getFlushMode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EntityManagerFactory getEntityManagerFactory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<EntityGraph<? super T>> getEntityGraphs(
+			final Class<T> entityClass) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EntityGraph<?> getEntityGraph(final String graphName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getDelegate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CriteriaBuilder getCriteriaBuilder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T find(final Class<T> entityClass, final Object primaryKey,
+			final LockModeType lockMode, final Map<String, Object> properties) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T find(final Class<T> entityClass, final Object primaryKey,
+			final LockModeType lockMode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T find(final Class<T> entityClass, final Object primaryKey,
+			final Map<String, Object> properties) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void detach(final Object entity) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public StoredProcedureQuery createStoredProcedureQuery(
+			final String procedureName, final String... resultSetMappings) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StoredProcedureQuery createStoredProcedureQuery(
+			final String procedureName, final Class... resultClasses) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StoredProcedureQuery createStoredProcedureQuery(
+			final String procedureName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Query createQuery(final CriteriaDelete deleteQuery) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Query createQuery(final CriteriaUpdate updateQuery) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> TypedQuery<T> createQuery(final CriteriaQuery<T> criteriaQuery) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Query createNativeQuery(final String sqlString,
+			final String resultSetMapping) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Query createNativeQuery(final String sqlString,
+			final Class resultClass) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Query createNativeQuery(final String sqlString) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StoredProcedureQuery createNamedStoredProcedureQuery(
+			final String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> TypedQuery<T> createNamedQuery(final String name,
+			final Class<T> resultClass) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Query createNamedQuery(final String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EntityGraph<?> createEntityGraph(final String graphName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> EntityGraph<T> createEntityGraph(final Class<T> rootType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void close() {
+		memoryDatabase.clear();
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+
+	}
+}

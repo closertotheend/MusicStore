@@ -3,8 +3,6 @@ package service;
 import java.security.Principal;
 
 import javax.annotation.Resource;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.LocalBean;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -12,10 +10,11 @@ import javax.inject.Named;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import model.authentication.Role;
+import model.authentication.RoleEnum;
 import model.authentication.User;
 import service.abstractions.AbstractFacade;
 
-@DeclareRoles({ "TutorialUser", "DIRECTOR" })
 @LocalBean
 @Stateless
 @Named
@@ -28,7 +27,7 @@ public class UserEJB extends AbstractFacade<User> {
 	@Resource
 	SessionContext ctx;
 
-	public User findByUsername(String username) {
+	public User findByUsername(final String username) {
 		try {
 			TypedQuery<User> query = getEm().createNamedQuery(
 					User.FIND_BY_USERNAME, User.class);
@@ -40,8 +39,11 @@ public class UserEJB extends AbstractFacade<User> {
 	}
 
 	@Override
-	@RolesAllowed("TutorialUser")
-	public void create(User user) {
+	public void create(final User user) {
+		Role userRole = new Role(user.getUsername(), RoleEnum.USER);
+		getEm().persist(userRole);
+		flushEm();
+		user.setUserRole(userRole);
 		super.create(user);
 	}
 

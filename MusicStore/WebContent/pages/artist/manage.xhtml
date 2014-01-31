@@ -1,0 +1,44 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="title">Delete Artist</ui:define>
+	<ui:define name="content">
+		<ui:include src="/resources/templates/basic/basic_form.xhtml">
+			<ui:param name="header" value="Here you can delete an artist" />
+		</ui:include>
+
+		<h:form>
+			<h:dataTable class="table table-striped"
+				value="#{artistController.all}" var="record">
+				<h:column>
+					<f:facet name="header">Name Of Artist</f:facet>
+				#{record.name}  
+			</h:column>
+				<h:column>
+					<f:facet name="header">Edit</f:facet>
+					<h:commandButton value="Edit" class="btn btn-default"
+						action="#{artistController.setEditedArtistById(record.id)}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Delete</f:facet>
+					<h:commandButton value="Delete1" class="btn btn-default pull-right"
+						action="#{artistController.deleteArtistById(record.id)}"
+						onclick="return deleteArtist()" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+
+		<script>
+			function deleteArtist() {
+				var agree = confirm("Are you sure you want to delete?");
+				if (agree)
+					return true;
+				else
+					return false;
+			}
+		</script>
+	</ui:define>
+</ui:composition>
+</h:html>

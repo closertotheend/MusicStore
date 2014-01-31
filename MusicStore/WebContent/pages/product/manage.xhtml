@@ -1,0 +1,38 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="title">Manage Products</ui:define>
+	<ui:define name="content">
+		<ui:include src="/resources/templates/basic/basic_form.xhtml">
+			<ui:param name="header" value="Here you can delete a product" />
+		</ui:include>
+
+		<h:form>
+			<h:dataTable class="table table-striped"
+				value="#{productController.all}" var="record">
+				<h:column>
+					<f:facet name="header">Name Of Product</f:facet>
+				#{record.toString()}  
+				</h:column>
+				<h:column>
+					<f:facet name="header">Delete</f:facet>
+					<h:commandButton value="Delete" onclick="return deleteConfirm()" class="btn btn-default"
+						action="#{productController.delete(record.id)}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+
+		<script>
+			function deleteConfirm() {
+				var agree = confirm("Are you sure you want to delete?");
+				if (agree)
+					return true;
+				else
+					return false;
+			}
+		</script>
+	</ui:define>
+</ui:composition>
+</h:html>

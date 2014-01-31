@@ -32,6 +32,8 @@
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
 						<li><h:link value="Add Artist"
 								outcome="/pages/artist/add?faces-redirect=true" /></li>
+						<li><h:link value="Edit / Delete Artist"
+								outcome="/pages/artist/manage?faces-redirect=true" /></li>
 					</ul></li>
 
 				<li class="dropdown"><a href="#" id="drop2" role="button"
@@ -40,6 +42,8 @@
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
 						<li><h:link value="Add Track"
 								outcome="/pages/track/add?faces-redirect=true" /></li>
+						<li><h:link value="Edit / Delete Track"
+								outcome="/pages/track/manage?faces-redirect=true" /></li>
 					</ul></li>
 
 				<li class="dropdown"><a href="#" id="drop2" role="button"
@@ -48,6 +52,8 @@
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
 						<li><h:link value="Add Album"
 								outcome="/pages/album/add?faces-redirect=true" /></li>
+						<li><h:link value="Edit / Delete Album"
+								outcome="/pages/album/manage?faces-redirect=true" /></li>
 					</ul></li>
 
 				<li class="dropdown"><a href="#" id="drop2" role="button"
@@ -56,6 +62,8 @@
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
 						<li><h:link value="Add Product"
 								outcome="/pages/product/add?faces-redirect=true" /></li>
+						<li><h:link value="Edit / Delete Product"
+								outcome="/pages/product/manage?faces-redirect=true" /></li>
 					</ul></li>
 
 				<li class="dropdown"><a href="#" id="drop2" role="button"
@@ -75,8 +83,14 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#"><h:outputText
-							value="#{authenticationController.authenticationEJB.currentSessionUser.username}" /></a></li>
+							value="#{authenticationController.authenticationEJB.realmUsername}" /></a></li>
 			</ul>
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><h:outputText
+							value="->>> #{authenticationController.authenticationEJB.realmGroup}" /></a></li>
+			</ul>
+							
 		</div>
 	</div>
 </div>
