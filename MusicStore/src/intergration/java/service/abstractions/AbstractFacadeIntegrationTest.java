@@ -4,30 +4,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import testutil.FakeEntity;
-import testutil.FakeEntityEJB;
 import testutil.IntegrationTestBase;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbstractFacadeIntegrationTest extends IntegrationTestBase {
 
-	private static final AbstractFacade<FakeEntity> abstractFacade = spy(new FakeEntityEJB());
-	private final FakeEntity entity = new FakeEntity(13);
-	private final FakeEntity entity2 = new FakeEntity(14);
-	private final FakeEntity entity3 = new FakeEntity(15);
-
-	@BeforeClass
-	public static void initBehaviour() {
-		when(abstractFacade.getEm()).thenReturn(fakeEm);
-	}
+	private final FakeEntity entity = new FakeEntity();
+	private final FakeEntity entity2 = new FakeEntity();
+	private final FakeEntity entity3 = new FakeEntity();
 
 	@Test
 	public void testGetEm() {
@@ -44,9 +34,9 @@ public class AbstractFacadeIntegrationTest extends IntegrationTestBase {
 	@Test
 	public void testDelete() {
 		abstractFacade.create(entity);
-		assertTrue(abstractFacade.getEm().contains(entity));
+		assertEquals(1, abstractFacade.count());
 		abstractFacade.delete(entity);
-		assertFalse(abstractFacade.getEm().contains(entity));
+		assertEquals(0, abstractFacade.count());
 	}
 
 	@Test
@@ -65,7 +55,9 @@ public class AbstractFacadeIntegrationTest extends IntegrationTestBase {
 		assertTrue(abstractFacade.getEm().contains(entity));
 		assertTrue(abstractFacade.getEm().contains(entity2));
 		assertTrue(abstractFacade.getEm().contains(entity3));
-		assertEquals("entity id is 13", entity, abstractFacade.find(13));
+		assertEquals(3, abstractFacade.count());
+		abstractFacade.flushEm();
+		assertEquals(entity, abstractFacade.find(entity.getId()));
 	}
 
 	@Test

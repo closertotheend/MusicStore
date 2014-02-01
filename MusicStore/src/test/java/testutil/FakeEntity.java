@@ -1,6 +1,8 @@
 package testutil;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import model.abstractions.EntityInterface;
@@ -21,10 +23,13 @@ public class FakeEntity implements EntityInterface {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	private String sth;
+
 	@Override
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -57,6 +62,14 @@ public class FakeEntity implements EntityInterface {
 	@Override
 	public String toString() {
 		return "FakeEntity [id=" + id + "]";
+	}
+
+	public String getSth() {
+		return sth;
+	}
+
+	public void setSth(final String sth) {
+		this.sth = sth;
 	}
 
 }

@@ -33,7 +33,7 @@ public class Role implements Serializable, EntityInterface {
 	}
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 

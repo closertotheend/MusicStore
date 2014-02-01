@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +37,6 @@ public class Artist implements Serializable, EntityInterface {
 	private long id;
 	private String name;
 
-	@Column(columnDefinition = "TEXT")
 	private String description;
 
 	@ManyToMany(mappedBy = "artists")
@@ -48,7 +46,7 @@ public class Artist implements Serializable, EntityInterface {
 	private Set<Track> tracks = new HashSet<>();
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 

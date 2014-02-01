@@ -43,7 +43,7 @@ public class Product implements Serializable, EntityInterface {
 	private Store storeInWhichLocated;
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 

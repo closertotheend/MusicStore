@@ -1,11 +1,9 @@
 package model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +22,7 @@ import model.product.Product;
  * 
  */
 @Entity
-public class Album implements Serializable, EntityInterface {
+public class Album implements EntityInterface {
 	private static final long serialVersionUID = 1L;
 
 	public Album() {
@@ -41,11 +39,10 @@ public class Album implements Serializable, EntityInterface {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 	private String name;
 	private Integer releaseYear;
 
-	@Column(columnDefinition = "TEXT")
 	private String description;
 
 	@OneToMany(mappedBy = "album", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -60,11 +57,11 @@ public class Album implements Serializable, EntityInterface {
 	private Set<Artist> artists = new HashSet<>();
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(final Long id) {
+	public void setId(final long id) {
 		this.id = id;
 	}
 
@@ -120,7 +117,7 @@ public class Album implements Serializable, EntityInterface {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = (prime * result) + ((id == null) ? 0 : id.hashCode());
+		result = (prime * result) + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
@@ -136,11 +133,7 @@ public class Album implements Serializable, EntityInterface {
 			return false;
 		}
 		Album other = (Album) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
+		if (id != other.id) {
 			return false;
 		}
 		return true;

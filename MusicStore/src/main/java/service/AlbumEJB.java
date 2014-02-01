@@ -37,7 +37,8 @@ public class AlbumEJB extends AbstractFacade<Album> {
 	 */
 	@Override
 	public void delete(final Album album) {
-		List<Product> products = productEJB.getProductsByAlbumId(album.getId());
+		Long id = album.getId();
+		List<Product> products = getProductEJB().getProductsByAlbumId(id);
 		for (Product product : products) {
 			getProductEJB().delete(product);
 		}
@@ -48,7 +49,4 @@ public class AlbumEJB extends AbstractFacade<Album> {
 		return productEJB;
 	}
 
-	public void setProductEJB(final ProductEJB productEJB) {
-		this.productEJB = productEJB;
-	}
 }

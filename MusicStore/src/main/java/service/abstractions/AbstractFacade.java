@@ -1,5 +1,6 @@
 package service.abstractions;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -76,9 +77,13 @@ public abstract class AbstractFacade<T extends EntityInterface> {
 	 * @return all entities
 	 */
 	public List<T> findAll() {
-		return getEm().createQuery(
-				"SELECT e FROM " + entityClass.getName() + " e", entityClass)
-				.getResultList();
+		try {
+			return getEm().createQuery(
+					"SELECT e FROM " + entityClass.getName() + " e",
+					entityClass).getResultList();
+		} catch (Exception e) {
+			return Collections.emptyList();
+		}
 	}
 
 	/**

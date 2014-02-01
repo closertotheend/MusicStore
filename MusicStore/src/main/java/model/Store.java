@@ -37,7 +37,7 @@ public class Store implements Serializable, EntityInterface {
 	}
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 
