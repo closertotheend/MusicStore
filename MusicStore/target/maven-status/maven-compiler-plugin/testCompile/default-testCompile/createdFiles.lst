@@ -1,0 +1,6 @@
+testutil\fem\FakeQuery.class
+testutil\fem\FakeEntityManager.class
+testutil\FakeEntityEJB.class
+testutil\fem\FakeTypedQuery.class
+testutil\fem\FakeEntityManagerTest.class
+service\abstractions\AbstractFacadeTest.class

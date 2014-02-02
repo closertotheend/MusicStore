@@ -20,6 +20,8 @@
 	</persistence-unit>
 
 	<persistence-unit name="TEST">
+			<class>model.authentication.User</class>
+		<class>model.authentication.Role</class>
 		<class>model.Store</class>
 		<class>model.Artist</class>
 		<class>model.Track</class>

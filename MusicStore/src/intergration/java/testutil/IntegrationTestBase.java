@@ -19,6 +19,7 @@ import service.StoreEJB;
 import service.TrackEJB;
 import service.UserEJB;
 import service.abstractions.AbstractFacade;
+import service.authentication.AuthenticationEJB;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IntegrationTestBase {
@@ -29,29 +30,32 @@ public class IntegrationTestBase {
 	protected final static StoreEJB storeEJB = spy(new StoreEJB());
 	protected final static TrackEJB trackEJB = spy(new TrackEJB());
 	protected final static UserEJB userEJB = spy(new UserEJB());
+	protected final static AuthenticationEJB authenticationEJB = spy(new AuthenticationEJB());
 
 	protected static final EntityManager fakeEm = Persistence
 			.createEntityManagerFactory("TEST").createEntityManager();
 
 	@BeforeClass
-	public static void initBehaviour() {
+	public static void initOnceBeforeClass() {
 		when(abstractFacade.getEm()).thenReturn(fakeEm);
 		when(albumEJB.getEm()).thenReturn(fakeEm);
-		when(albumEJB.getProductEJB()).thenReturn(productEJB);
 		when(artistEJB.getEm()).thenReturn(fakeEm);
 		when(productEJB.getEm()).thenReturn(fakeEm);
 		when(storeEJB.getEm()).thenReturn(fakeEm);
 		when(trackEJB.getEm()).thenReturn(fakeEm);
 		when(userEJB.getEm()).thenReturn(fakeEm);
+
+		when(albumEJB.getProductEJB()).thenReturn(productEJB);
+		when(authenticationEJB.getUserEJB()).thenReturn(userEJB);
 	}
 
 	@Before
-	public void init() {
+	public void initBeforeEachTest() {
 		fakeEm.getTransaction().begin();
 	}
 
 	@After
-	public void after() {
+	public void initAfterEachTest() {
 		fakeEm.getTransaction().rollback();
 	}
 

@@ -1,0 +1,90 @@
+package service.other;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+
+import service.AlbumEJB;
+import service.ArtistEJB;
+import service.TrackEJB;
+import model.Album;
+import model.Artist;
+import model.Track;
+
+//@Startup
+//@Singleton
+public class FixtureEJB {
+
+	@EJB
+	private ArtistEJB artistEJB;
+
+	@EJB
+	private TrackEJB trackEJB;
+
+	@EJB
+	private AlbumEJB albumEJB;
+
+	@PostConstruct
+	public void init() {
+		Artist ledZepArtist = new Artist();
+		ledZepArtist.setName("Led Zeppelin");
+		ledZepArtist
+				.setDescription("Led Zeppelin were an English rock band formed in London in 1968. The band consisted of guitarist Jimmy Page, singer Robert Plant, bassist and keyboardist John Paul Jones, and drummer John Bonham. The group's heavy, guitar-driven sound, rooted in blues on their early albums, has drawn them recognition as one of the progenitors of heavy metal, though their unique style drew from a wide variety of influences, including folk music.");
+		ledZepArtist.setId(2l);
+		artistEJB.create(ledZepArtist);
+
+		Track track = new Track();
+		track.setName("Good Times Bad Times");
+		track.getArtists().add(ledZepArtist);
+		trackEJB.create(track);
+
+		Track track2 = new Track();
+		track2.setName("Babe I'm Gonna Leave You");
+		track2.getArtists().add(ledZepArtist);
+		trackEJB.create(track2);
+
+		Track track3 = new Track();
+		track3.setName("You Shook Me");
+		track3.getArtists().add(ledZepArtist);
+		trackEJB.create(track3);
+
+		Track track4 = new Track();
+		track4.setName("Dazed and Confused");
+		track4.getArtists().add(ledZepArtist);
+		trackEJB.create(track4);
+
+		Album album = new Album();
+		album.setName("Led Zeppelin (album)");
+		album.setDescription("Led Zeppelin is the debut album by English rock band Led Zeppelin. It was recorded in October 1968 at Olympic Studios in London and released on Atlantic Records on 12 January 1969 in the US and 31 March in the UK. Featuring integral contributions from each of the group's four musicians, the album established their fusion of blues and rock. It also attracted a large and devoted following to the band; Zeppelin's take on the emerging heavy metal sound endeared them to parts of the counterculture on both sides of the Atlantic.");
+		album.setReleaseYear(1969);
+		album.getArtists().add(ledZepArtist);
+		album.getTracks().add(track);
+		album.getTracks().add(track2);
+		album.getTracks().add(track3);
+		album.getTracks().add(track4);
+		albumEJB.create(album);
+
+		
+		Artist artist3 = new Artist();
+		artist3.setName("Pink Floyd");
+		artist3.setDescription("Pink Floyd were an English rock band that achieved international acclaim with their progressive and psychedelic music. Distinguished by their use of philosophical lyrics, sonic experimentation, and elaborate live shows, they are one of the most commercially successful and musically influential groups in the history of popular music.");
+		artist3.setId(3l);
+		artistEJB.create(artist3);
+
+		Artist artist = new Artist();
+		artist.setName("Iron Maiden");
+		artist.setDescription("Iron Maiden are an English heavy metal band formed in Leyton, east London, in 1975 by bassist and primary songwriter Steve Harris. The band's discography has grown to thirty-seven albums, including fifteen studio albums, eleven live albums, four EPs, and seven compilations.");
+		artist.setId(1l);
+		artistEJB.create(artist);
+		
+		System.err.println(artistEJB.find(1l));
+		System.err.println(artistEJB.find(2l));
+		System.err.println(artistEJB.find(3l));
+		System.err.println(trackEJB.find(1l));
+		System.err.println(trackEJB.find(2l));
+		System.err.println(albumEJB.find(1l));
+
+	}
+
+}

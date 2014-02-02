@@ -1,0 +1,17 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<div class="center-block">
+	<div class="btn-group" style="display: table; margin: 0 auto;">
+		<button type="button" class="btn btn-default">A</button>
+		<button type="button" class="btn btn-default">B</button>
+		<button type="button" class="btn btn-default">C</button>
+		<button type="button" class="btn btn-default">D</button>
+		<button type="button" class="btn btn-default">E</button>
+		<button type="button" class="btn btn-default">F</button>
+		<button type="button" class="btn btn-default">G</button>
+		<button type="button" class="btn btn-default">Z</button>
+	</div>
+</div>
+<br></br>
+</h:html>

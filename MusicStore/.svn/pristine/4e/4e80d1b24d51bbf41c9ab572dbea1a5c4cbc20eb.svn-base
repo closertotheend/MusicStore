@@ -1,0 +1,54 @@
+package controller.store;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
+import model.Album;
+import model.Artist;
+import model.Store;
+import service.AlbumEJB;
+import service.ArtistEJB;
+import service.StoreEJB;
+
+/**
+ * @author ilja
+ *
+ */
+@FacesConverter("storeConverter")
+public class StoreConverter implements Converter {
+
+	@Inject
+	private StoreEJB storeEJB;
+
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent component,
+			String value) {
+		return getStoreEJB().find(Long.parseLong(value));
+	}
+
+	@Override
+	public String getAsString(FacesContext context, UIComponent component,
+			Object value) {
+		String val = null;
+		try {
+			Store store = (Store) value;
+			val = Long.toString(store.getId());
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+		}
+		return val;
+	}
+
+	public StoreEJB getStoreEJB() {
+		return storeEJB;
+	}
+
+	public void setStoreEJB(StoreEJB storeEJB) {
+		this.storeEJB = storeEJB;
+	}
+
+
+}

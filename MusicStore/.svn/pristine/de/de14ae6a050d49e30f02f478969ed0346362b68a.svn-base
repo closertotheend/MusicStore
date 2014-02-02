@@ -1,0 +1,56 @@
+package service;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+public abstract class BaseDAO<T> {
+
+	private Class<T> entityClass;
+
+	public BaseDAO(Class<T> entityClass) {
+		this.entityClass = entityClass;
+	}
+
+	protected abstract EntityManager getEntityManager();
+
+	public boolean create(T entity) {
+		try {
+			getEntityManager().persist(entity);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public T update(T entity) {
+		getEntityManager().merge(entity);
+		return entity;
+	}
+
+	public T delete(T entity) {
+		getEntityManager().remove(entity);
+		return entity;
+	}
+
+	public List<T> findAll() {
+		Query q = getEntityManager().createQuery(
+				"SELECT e FROM " + entityClass.getName() + " e");
+		List<T> list = (List<T>) q.getResultList();
+		return list;
+	}
+
+	public T find(long id) {
+		T e = getEntityManager().find(entityClass, id);
+		return e;
+	}
+
+	public long count() {
+		return ((Long) getEntityManager().createQuery(
+				"select count(e) from " + entityClass.getName() + " as e")
+				.getSingleResult()).intValue();
+	}
+
+}

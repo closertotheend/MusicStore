@@ -1,0 +1,30 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Add artist</title>
+</h:head>
+
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<div class="form-group">
+				<h:outputLabel value="Name of the artist:" />
+				<h:inputText value="#{artistController.artistToBeCreated.name}"
+					class="form-control" style="height: 27px; width: 427px;" />
+			</div>
+			<br />
+			<div class="form-group">
+				<h:outputLabel value="Description:" />
+				<h:inputTextarea row="20" col="40" class="form-control"
+					value="#{artistController.artistToBeCreated.description}"
+					style="height: 114px; width: 427px; " />
+			</div>
+			<br />
+			<h:commandButton class="btn btn-default" value="Save"
+				action="#{artistController.save()}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</h:html>

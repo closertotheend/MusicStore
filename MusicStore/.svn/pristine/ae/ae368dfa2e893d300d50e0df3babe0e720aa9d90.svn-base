@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+<title><ui:insert name="title">Default title</ui:insert></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" media="screen"
+	href="/MusicStore/resources/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" media="screen"
+	href="/MusicStore/resources/lib/bootstrap/dist/css/bootstrap-theme.min.css" />
+</h:head>
+<body>
+<ui:debug/>
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="header.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div id="content" class="container">
+		<br /> <br /> <br />
+
+		<ui:insert name="artist_alphabet">
+			<ui:include src="artist_alphabet.xhtml" />
+		</ui:insert>
+
+		<ui:insert name="error_well">
+			<ui:include src="error_well.xhtml" />
+		</ui:insert>
+		
+		<ui:insert name="content">
+    	Content area.  See comments below this line in the source.
+		</ui:insert>
+
+		<hr class="featurette-divider" />
+
+		<ui:insert name="footer">
+			<ui:include src="footer.xhtml" />
+		</ui:insert>
+	</div>
+
+	<script src="/MusicStore/resources/lib/jquery/jquery.min.js"></script>
+	<script src="/MusicStore/resources/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+

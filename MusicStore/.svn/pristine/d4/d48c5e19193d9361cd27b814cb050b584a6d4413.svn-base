@@ -1,0 +1,105 @@
+package service.abstractions;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import javax.persistence.EntityManager;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import util.FakeEntity;
+import util.FakeEntityEJB;
+import util.fem.FakeEntityManager;
+
+@RunWith(MockitoJUnitRunner.class)
+public class AbstractFacadeTest {
+
+	private AbstractFacade<FakeEntity> abstractFacade = spy(new FakeEntityEJB());
+
+	private FakeEntity entity = new FakeEntity(13);
+
+	@Before
+	public void init() {
+		EntityManager fakeEm = spy(new FakeEntityManager());
+		when(abstractFacade.getEm()).thenReturn(fakeEm);
+	}
+
+	@Test
+	public void testGetEm() throws Exception {
+		abstractFacade.getEm();
+		verify(abstractFacade).getEm();
+		assertFalse(abstractFacade.getEm().contains(entity));
+	}
+
+	@Test
+	public void testCreate() throws Exception {
+		abstractFacade.create(entity);
+		verify(abstractFacade.getEm()).persist(entity);
+		assertTrue(abstractFacade.getEm().contains(entity));
+	}
+
+	@Test
+	public void testUpdate() throws Exception {
+		abstractFacade.update(entity);
+		verify(abstractFacade).update(entity);
+	}
+
+	@Test
+	public void testDelete() throws Exception {
+		abstractFacade.create(entity);
+		assertTrue(abstractFacade.getEm().contains(entity));
+		abstractFacade.delete(entity);
+		verify(abstractFacade).delete(entity);
+		assertFalse(abstractFacade.getEm().contains(entity));
+	}
+
+	@Test
+	public void testFindAll() throws Exception {
+		abstractFacade.create(entity);
+		FakeEntity entity2 = new FakeEntity(12);
+		abstractFacade.create(entity2);
+		verify(abstractFacade.getEm(), times(2)).persist(any());
+		assertTrue(abstractFacade.findAll().size() == 2);
+	}
+
+	@Test
+	public void testFind() throws Exception {
+		assertFalse(abstractFacade.getEm().contains(entity));
+		FakeEntity entity2 = new FakeEntity(12);
+		FakeEntity entity3 = new FakeEntity(16);
+		abstractFacade.create(entity);
+		abstractFacade.create(entity2);
+		abstractFacade.create(entity3);
+		assertTrue(abstractFacade.getEm().contains(entity));
+		assertTrue(abstractFacade.getEm().contains(entity2));
+		assertTrue(abstractFacade.getEm().contains(entity3));
+		assertEquals("entity id is 13", entity, abstractFacade.find(13));
+		verify(abstractFacade).find(13);
+		verify(abstractFacade.getEm()).find(FakeEntity.class, 13l);
+	}
+
+	@Test
+	public void testCount() throws Exception {
+		FakeEntity entity2 = new FakeEntity(12);
+		FakeEntity entity3 = new FakeEntity(16);
+		abstractFacade.create(entity);
+		abstractFacade.create(entity2);
+		abstractFacade.create(entity3);
+		assertEquals(3, abstractFacade.count());
+	}
+
+	@Test
+	public void testFlushEm() throws Exception {
+		abstractFacade.flushEm();
+		verify(abstractFacade.getEm()).flush();
+	}
+}

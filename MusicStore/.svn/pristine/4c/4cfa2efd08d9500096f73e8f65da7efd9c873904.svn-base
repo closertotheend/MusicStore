@@ -1,0 +1,49 @@
+package controller.artist;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
+import model.Artist;
+import service.ArtistEJB;
+
+/**
+ * @author ilja
+ *	
+ */
+@FacesConverter("artistConverter")
+public class ArtistConverter implements Converter {
+
+	@Inject
+	private ArtistEJB artistEJB;
+
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent component,
+			String value) {
+		return getArtistEJB().find(Long.parseLong(value));
+	}
+
+	@Override
+	public String getAsString(FacesContext context, UIComponent component,
+			Object value) {
+		String val = null;
+		try {
+			Artist album = (Artist) value;
+			val = Long.toString(album.getId());
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+		}
+		return val;
+	}
+
+	public ArtistEJB getArtistEJB() {
+		return artistEJB;
+	}
+
+	public void setArtistEJB(ArtistEJB artistEJB) {
+		this.artistEJB = artistEJB;
+	}
+
+}

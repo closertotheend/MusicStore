@@ -1,0 +1,24 @@
+package util;
+
+
+public class PaginationHelper {
+
+	public static int getNumberOfPages(int numberOfSth, int numberOfSthPerPage) {
+		return numberOfSth / numberOfSthPerPage + 1;
+	}
+
+	public static int validateAndDecrementPageParam(int page) {
+		if (page <= 0) {
+			page = 1;
+		}
+		page--;
+		return page;
+	}
+
+	public static int getNumberOfSthToBeginWith(int unparsedPageNr,
+			int numberOfSthPerOnePage) {
+		return validateAndDecrementPageParam(unparsedPageNr)
+				* numberOfSthPerOnePage;
+	}
+
+}

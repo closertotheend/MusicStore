@@ -1,0 +1,63 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Add artist</title>
+</h:head>
+
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="content">
+		<h2>Add Album Form</h2>
+		<hr />
+		<h3>1) List Of Artists:</h3>
+		<h:dataTable value="#{albumController.albumToBeCreated.artists}"
+			var="record">
+			<h:column>
+				<h:outputText value="#{record}" />
+			</h:column>
+		</h:dataTable>
+		<br />
+		<h:form>
+			<div class="form-group">
+				<h:selectOneListbox
+					value="#{albumController.artistWhoWillBeAddedToTheAlbumToBeCreated}">
+					<f:selectItems value="#{artistController.all}" var="artist"
+						itemLabel="#{artist.name}" itemValue="#{artist}" />
+					<f:converter converterId="artistConverter" />
+				</h:selectOneListbox>
+			</div>
+			<h:commandButton class="btn btn-default" value="Add artist"
+				action="#{albumController.addArtistToAlbumToBeCreatedArtists()}" />
+		</h:form>
+		<hr />
+		<h3>2) Information About The Album:</h3>
+		<h:form role="form">
+			<div class="form-group">
+				<h:outputLabel for="nameOfTheAlbum" value="Name of the album:" />
+				<h:inputText id="nameOfTheAlbum" class="form-control"
+					value="#{albumController.albumToBeCreated.name}"
+					style="height: 27px; width: 427px;" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel for="descriptionOfTheAlbum" value="Description:" />
+				<h:inputTextarea row="20" col="40" id="descriptionOfTheAlbum"
+					class="form-control"
+					value="#{albumController.albumToBeCreated.description}"
+					style="height: 114px; width: 427px; " />
+			</div>
+			<div class="form-group">
+				<h:outputLabel for="yearOfTheAlbum" value="Year:" />
+				<div class="row">
+					<div class="col-xs-2">
+						<h:inputText id="yearOfTheAlbum" class="form-control"
+							value="#{albumController.albumToBeCreated.releaseYear}" />
+					</div>
+				</div>
+			</div>
+			<h:commandButton class="btn btn-default" value="Save"
+				action="#{albumController.save()}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</h:html>

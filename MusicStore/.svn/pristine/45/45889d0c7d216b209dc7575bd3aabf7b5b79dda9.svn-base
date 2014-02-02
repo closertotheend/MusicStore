@@ -1,0 +1,79 @@
+package model.other;
+
+import java.io.Serializable;
+import java.lang.String;
+
+import javax.persistence.*;
+
+import model.auth.User;
+
+/**
+ * Entity implementation class for Entity: Post
+ * 
+ */
+@Entity
+@NamedQueries({
+		@NamedQuery(name = Post.FIND_ALL, query = "SELECT p FROM Post p"),
+		@NamedQuery(name = Post.FIND_ALL_IN_REVERSE_ORDER, query = "SELECT p FROM Post p ORDER BY p.id DESC"),
+		@NamedQuery(name = Post.FIND_BY_ID, query = "SELECT p FROM Post p where p.id = :postId"),
+		@NamedQuery(name = Post.DELETE_BY_ID, query = "DELETE from Post p where p.id = :postId") })
+public class Post implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	public static final String DELETE_BY_ID = "Post.delete";
+	public static final String FIND_BY_ID = "Post.findById";
+	public static final String FIND_ALL = "Post.findAll";
+	public static final String FIND_ALL_IN_REVERSE_ORDER = "Post.findAllInReverseOrder";
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	private String header;
+	private String content;
+
+	@ManyToOne
+	private User author;
+
+	public Post() {
+		super();
+	}
+
+	public String getHeader() {
+		return this.header;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+	public String getContent() {
+		return this.content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", header=" + header + ", content=" + content
+				+ ", author=" + author + "]";
+	}
+
+}

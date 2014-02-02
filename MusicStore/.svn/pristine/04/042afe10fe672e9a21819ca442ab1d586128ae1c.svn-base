@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.4" icons="true">  
+  <object id="1" language="java" name="model.auth.User" project="MusicStore" file="/MusicStore/src/model/auth/User.java" 
+    binary="false" label="user" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="333" y="0"/>    
+    <execution id="2">      
+      <position height="373" width="53" x="5" y="226"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="controller.album.AlbumController" project="MusicStore" 
+    file="/MusicStore/src/controller/album/AlbumController.java" binary="false" label="albumController" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="403" y="0"/>    
+    <execution id="18">      
+      <position height="105" width="115" x="62" y="78"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="21" width="115" x="62" y="247"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="119" width="7" x="116" y="285"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="21" width="7" x="116" y="341"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="21" width="7" x="116" y="413"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="21" width="115" x="62" y="452"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="21" width="115" x="62" y="496"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="21" width="115" x="62" y="534"/>    
+    </execution>  
+  </object>  
+  <object id="24" language="java" name="controller.artist.ArtistController" project="MusicStore" 
+    file="/MusicStore/src/controller/artist/ArtistController.java" binary="false" label="artistController" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="462" y="0"/>    
+    <execution id="20">      
+      <position height="63" width="110" x="181" y="99"/>    
+    </execution>  
+  </object>  
+  <object id="27" language="java" name="service.ArtistEJB" project="MusicStore" 
+    file="/MusicStore/src/service/ArtistEJB.java" binary="false" label="artistEJB" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="665" y="0"/>    
+    <execution id="26">      
+      <position height="21" width="76" x="295" y="120"/>    
+    </execution>  
+  </object>  
+  <object id="28" language="java" name="service.TrackEJB" project="MusicStore" 
+    file="/MusicStore/src/service/TrackEJB.java" binary="false" label="trackEJB" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="736" y="0"/>    
+    <execution id="22">      
+      <position height="77" width="77" x="375" y="306"/>    
+    </execution>  
+  </object>  
+  <object id="30" language="java" name="service.AlbumEJB" project="MusicStore" 
+    file="/MusicStore/src/service/AlbumEJB.java" binary="false" label="albumEJB" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="954" y="0"/>    
+    <execution id="16">      
+      <position height="21" width="81" x="456" y="557"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="setArtistWhoWillBeAddedToTheAlbumToBeCreated(model.Artist):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="addArtistToAlbumToBeCreated():void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" operation="setTrackThatIsAddedToTheAlbum(model.Track):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="addTrackToAlbum():void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="setAlbumToBeCreated(model.Album):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="save():void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="create(T):boolean">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="19" operation="getAll():java.util.List&lt;Artist&gt;">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" operation="getTracksByArtists(java.util.Collection&lt;model.Artist&gt;):java.util.Set&lt;Track&gt;">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="25" operation="findAll():java.util.List&lt;T&gt;" x="247" y="100">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="29">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>
+</sequence-diagram>

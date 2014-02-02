@@ -1,0 +1,70 @@
+package controller.artist;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import model.Artist;
+import service.ArtistEJB;
+
+@Named
+@SessionScoped
+public class ArtistController implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private Artist artistToBeCreated;
+
+	@Inject
+	private ArtistEJB artistEJB;
+
+	public void save() {
+		boolean isCreated = getArtistEJB().create(getArtistToBeCreated());
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		if (isCreated) {
+			FacesMessage successMessage = new FacesMessage(
+					"The artist was succesfully created!");
+			successMessage.setSeverity(FacesMessage.SEVERITY_INFO);
+			facesContext.addMessage(null, successMessage);
+			artistToBeCreated = null;
+		} else {
+			FacesMessage errorMessage = new FacesMessage(
+					"The artist was not created created!");
+			errorMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+			facesContext.addMessage(null, errorMessage);
+		}
+	}
+
+	public List<Artist> getAll() {
+		return getArtistEJB().findAll();
+	}
+
+	public Artist getArtistById(long id) {
+		return artistEJB.find(id);
+	}
+
+	public Artist getArtistToBeCreated() {
+		if (artistToBeCreated == null) {
+			artistToBeCreated = new Artist();
+
+		}
+		return artistToBeCreated;
+	}
+
+	public void setArtistToBeCreated(Artist artistToBeCreated) {
+		this.artistToBeCreated = artistToBeCreated;
+	}
+
+	public ArtistEJB getArtistEJB() {
+		return artistEJB;
+	}
+
+	public void setArtistEJB(ArtistEJB artistEJB) {
+		this.artistEJB = artistEJB;
+	}
+
+}

@@ -1,0 +1,25 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="title">Track in Album</ui:define>
+	<ui:define name="content">
+		<ui:include src="/resources/templates/basic/basic_form.xhtml">
+			<ui:param name="header"
+				value="#{albumController.getAlbumById((param['albumId'])).name}" />
+		</ui:include>
+
+		<h:dataTable
+			value="#{trackController.getTracksByAlbumId((param['albumId']))}"
+			var="record">
+			<h:column>
+				<h:outputText value="#{trackController.getTracksByAlbumId((param['albumId'])).rowIndex + 1}"></h:outputText>
+				<h:outputText value="#{record.name}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+
+	</ui:define>
+</ui:composition>
+</h:html>

@@ -1,0 +1,69 @@
+package service.authentication;
+
+import javax.annotation.Resource;
+import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateful;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import model.auth.User;
+
+@Stateful
+@LocalBean
+@Named
+public class AuthenticationEJB {
+
+	private User currentSessionUser = new User(0, "ANONYMOUS", null, null);
+	private boolean isAuthenitcated = false;
+
+	@Resource
+	SessionContext ctx;
+
+	@PersistenceContext
+	private EntityManager em;
+
+	@Inject
+	private UserEJB userEJB;
+
+	public boolean loginWithRealm() {
+		String glassfishRealmUsername = ctx.getCallerPrincipal().getName();
+		User user = userEJB.findByUsername(glassfishRealmUsername);
+		if (user != null) {
+			isAuthenitcated = true;
+			setCurrentSessionUser(user);
+			return true;
+		} else {
+			// getCurrentSessionUser().setUsername(callerKey
+			// + " !! not syncronized with db");
+			return false;
+		}
+	}
+
+	public boolean loginWithUserNameAndPassword(String username, String password) {
+		User user = userEJB.findByUsername(username);
+		if (user != null && user.getPassword().equals(password)) {
+			isAuthenitcated = true;
+			setCurrentSessionUser(user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+
+	public boolean isUserAuthenticated() {
+		return isAuthenitcated;
+	}
+
+	public User getCurrentSessionUser() {
+		return currentSessionUser;
+	}
+
+	public void setCurrentSessionUser(User currentSessionUser) {
+		this.currentSessionUser = currentSessionUser;
+	}
+
+}

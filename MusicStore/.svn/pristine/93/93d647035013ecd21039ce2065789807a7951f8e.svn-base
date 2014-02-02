@@ -1,0 +1,80 @@
+package controller.product;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import model.Album;
+import model.Artist;
+import model.Store;
+import model.product.Product;
+import service.ArtistEJB;
+import service.ProductEJB;
+import service.StoreEJB;
+import util.MessagesHelper;
+
+/**
+ * @author ilja
+ *
+ */
+@Named
+@SessionScoped
+public class ProductController implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private Product productToBeCreated;
+	private Artist authorOfAlbum;
+
+	@Inject
+	private ProductEJB productEJB;
+
+	@Inject
+	private ArtistEJB artistEJB;
+
+	/**
+	 * Persists product and shows success message
+	 */
+	public void save() {
+		boolean isCreated = productEJB.create(productToBeCreated);
+		MessagesHelper.INSTANCE.showCreateMessage(isCreated, "product");
+	}
+
+	public List<Product> getProductsByAlbumId(long id) {
+		return productEJB.getProductsByAlbumId(id);
+	}
+
+	// Getters Setters
+
+	public Product getProductToBeCreated() {
+		if (productToBeCreated == null) {
+			productToBeCreated = new Product();
+
+		}
+		return productToBeCreated;
+	}
+
+	public void setProductToBeCreated(Product storeToBeCreated) {
+		this.productToBeCreated = storeToBeCreated;
+	}
+
+	public ArtistEJB getArtistEJB() {
+		return artistEJB;
+	}
+
+	public void setArtistEJB(ArtistEJB artistEJB) {
+		this.artistEJB = artistEJB;
+	}
+
+	public Artist getAuthorOfAlbum() {
+		return authorOfAlbum;
+	}
+
+	public void setAuthorOfAlbum(Artist authorOfAlbum) {
+		this.authorOfAlbum = authorOfAlbum;
+	}
+
+}

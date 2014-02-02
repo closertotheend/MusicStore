@@ -1,0 +1,72 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="title">Add Product</ui:define>
+	<ui:define name="content">
+		<ui:include src="/resources/templates/basic/basic_form.xhtml">
+			<ui:param name="header" value="Add Product Form" />
+		</ui:include>
+		<h3>1) Select at least one author of the album:</h3>
+		<h:form>
+			<div class="form-group">
+				<h:selectOneListbox value="#{productController.authorOfAlbum}"
+					required="true">
+					<f:selectItems value="#{artistController.all}" var="artist"
+						itemLabel="#{artist.name}" itemValue="#{artist}" />
+					<f:converter converterId="artistConverter" />
+				</h:selectOneListbox>
+			</div>
+			<h:commandButton class="btn btn-default"
+				value="Select Artist And Update Albums" />
+		</h:form>
+		<hr />
+
+		<h3>2) Select Album To Wrap:</h3>
+		<h:form>
+			<div class="form-group">
+				<h:selectOneListbox
+					value="#{productController.productToBeCreated.album}">
+					<f:selectItems
+						value="#{albumController.getAlbumsByArtistId(productController.authorOfAlbum.id)}"
+						var="album" itemLabel="#{album.name}" itemValue="#{album}" />
+					<f:converter converterId="albumConverter" />
+				</h:selectOneListbox>
+			</div>
+			<hr />
+
+			<h3>3) Select Type Of The Product:</h3>
+			<div class="form-group">
+				<h:selectOneMenu id="type"
+					value="#{productController.productToBeCreated.albumType}">
+					<f:selectItems
+						value="#{productTypeEnumController.productTypeValues}" />
+				</h:selectOneMenu>
+			</div>
+			<hr />
+
+			<h3>4) Select Shop Of The Product:</h3>
+			<div class="form-group">
+				<h:selectOneMenu id="store"
+					value="#{productController.productToBeCreated.storeInWhichLocated}">
+					<f:selectItems value="#{storeController.all}" var="store"
+						itemLabel="#{store.name}" itemValue="#{store}" />
+					<f:converter converterId="storeConverter" />
+				</h:selectOneMenu>
+			</div>
+			<hr />
+
+			<h3>5) Select Quantity Of The Product:</h3>
+			<div class="form-group">
+				<h:inputText id="quantity"
+					value="#{productController.productToBeCreated.quantity}" />
+			</div>
+			<h:commandButton class="btn btn-default" value="Save!"
+				action="#{productController.save}" />
+		</h:form>
+		<hr />
+
+	</ui:define>
+</ui:composition>
+</h:html>

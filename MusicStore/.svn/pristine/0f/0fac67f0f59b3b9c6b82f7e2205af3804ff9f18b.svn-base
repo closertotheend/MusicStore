@@ -1,0 +1,19 @@
+package controller.product;
+
+import java.io.Serializable;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
+import model.product.ProductType;
+
+@Named
+@RequestScoped
+public class ProductTypeEnumController implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	public ProductType[] getProductTypeValues() {
+	    return ProductType.values();
+	  }
+
+}

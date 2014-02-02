@@ -1,0 +1,44 @@
+package controller.store;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import model.Store;
+import service.StoreEJB;
+
+@Named
+@RequestScoped
+public class StoreController implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private Store storeToBeCreated;
+
+	@Inject
+	private StoreEJB storeEJB;
+
+	public void save() {
+		storeEJB.create(storeToBeCreated);
+	}
+	
+	public List<Store> getAll() {
+		return storeEJB.findAll();
+	}
+
+	public Store getStoreToBeCreated() {
+		if (storeToBeCreated == null) {
+			storeToBeCreated = new Store();
+
+		}
+		return storeToBeCreated;
+	}
+
+	public void setStoreToBeCreated(Store storeToBeCreated) {
+		this.storeToBeCreated = storeToBeCreated;
+	}
+
+}

@@ -1,0 +1,88 @@
+package service;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
+
+import javax.persistence.EntityManager;
+
+import model.Artist;
+import model.Track;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
+public class TrackEJBTest {
+
+	private TrackEJB trackEJB = spy(new TrackEJB());
+
+	@Before
+	public void setUp() {
+		EntityManager entityManager = new EntityManagerMockStub<Track>();
+		when(trackEJB.getEntityManager()).thenReturn(entityManager);
+	}
+
+	@Test
+	public void testGetEntityManager() throws Exception {
+		assertNotNull(trackEJB.getEntityManager());
+	}
+
+	@Test
+	public void testGetTracksByArtists() throws Exception {
+		Artist pink = new Artist();
+		pink.setTracks(new Set<Tracks>);
+	}
+
+	@Test
+	public void testCreate() throws Exception {
+		Track track = new Track();
+		track.setLyrics("Lalala");
+		trackEJB.create(track);
+		Track track2 = new Track();
+		track2.setLyrics("Lalasla");
+		trackEJB.create(track2);
+		assertEquals(trackEJB.find(1), track);
+		assertEquals(trackEJB.find(2), track2);
+		assertNull(trackEJB.find(3));
+	}
+
+	@Test
+	public void testUpdate() throws Exception {
+		Track track = new Track();
+		track.setLyrics("Lalala");
+		trackEJB.create(track);
+		assertEquals(trackEJB.find(1).getLyrics(), "Lalala");
+		track.setLyrics("ojoj");
+		assertEquals(trackEJB.find(1).getLyrics(), "Lalala");
+	}
+
+	@Test
+	public void testDelete() throws Exception {
+		Track track = new Track();
+		track.setLyrics("Lalala");
+		trackEJB.create(track);
+		assertEquals(trackEJB.find(1), track);
+		trackEJB.delete(track);
+		assertNull(trackEJB.find(1));
+	}
+
+	@Test
+	public void testFindAll() throws Exception {
+		assertNull(trackEJB.find(2));
+		//trackEJB.findAll();
+	}
+
+	@Test
+	public void testFind() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Test
+	public void testCount() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+}

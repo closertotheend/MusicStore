@@ -1,0 +1,28 @@
+package util;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+public enum MessagesHelper {
+	INSTANCE;
+	
+	/**
+	 * @param isCreated true if entity was persisted 
+	 * @param entityname name of entity which was persisted
+	 */
+	public void showCreateMessage(boolean isCreated, String entityname) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		if (isCreated) {
+			FacesMessage successMessage = new FacesMessage("The " + entityname
+					+ " was succesfully created!");
+			successMessage.setSeverity(FacesMessage.SEVERITY_INFO);
+			facesContext.addMessage(null, successMessage);
+		} else {
+			FacesMessage successMessage = new FacesMessage("The " + entityname
+					+ " was not succesfully created!");
+			successMessage.setSeverity(FacesMessage.SEVERITY_WARN);
+			facesContext.addMessage(null, successMessage);
+		}
+	}
+	
+}

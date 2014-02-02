@@ -1,0 +1,31 @@
+package service;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import model.Album;
+
+/**
+ * @author ilja
+ * 
+ */
+@Stateless
+@LocalBean
+@Named
+public class AlbumEJB extends BaseFacade<Album> {
+	@PersistenceContext
+	private EntityManager em;
+
+	public AlbumEJB() {
+		super(Album.class);
+	}
+
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
+	}
+
+}

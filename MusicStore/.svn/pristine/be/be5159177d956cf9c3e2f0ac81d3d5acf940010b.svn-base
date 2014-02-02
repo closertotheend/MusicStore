@@ -1,0 +1,62 @@
+package controller;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import model.auth.User;
+import model.other.Post;
+import service.other.PostEJB;
+import util.PaginationHelper;
+
+@Named
+@SessionScoped
+public class PostController implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private static final int NUMBER_OF_POSTS_PER_ONE_PAGE = 10;
+
+	private Post temporaryPost;
+
+	@Inject
+	private PostEJB postEJB;
+
+	public void save(User currentSessionUser) {
+		getTemporaryPost().setAuthor(currentSessionUser);
+		postEJB.create(getTemporaryPost());
+	}
+
+	public Post getTemporaryPost() {
+		if (temporaryPost == null) {
+			temporaryPost = new Post();
+		}
+		return temporaryPost;
+	}
+
+	public void setTemporaryPost(Post post) {
+		this.temporaryPost = post;
+	}
+
+	public List<Post> getAllPosts() {
+		return postEJB.findAll();
+	}
+
+	public List<Post> getPostsByPage(int unparsedPageNr) {
+		int numberOfPostToBeginWith = PaginationHelper.getNumberOfSthToBeginWith(unparsedPageNr,
+				NUMBER_OF_POSTS_PER_ONE_PAGE);
+		return postEJB.getPostsFromTo(numberOfPostToBeginWith,
+				NUMBER_OF_POSTS_PER_ONE_PAGE);
+	}
+
+	public int getNumberOfPostPages() {
+		return PaginationHelper.getNumberOfPages(getPostsCount(),
+				NUMBER_OF_POSTS_PER_ONE_PAGE);
+	}
+
+	public int getPostsCount() {
+		return postEJB.getPostsCount();
+	}
+
+}

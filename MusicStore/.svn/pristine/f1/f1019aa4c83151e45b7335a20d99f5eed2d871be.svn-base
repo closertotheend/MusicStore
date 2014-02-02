@@ -1,0 +1,61 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<div class="center-block">
+	<div class="btn-group" style="display: table; margin: 0 auto;">
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=a"
+			class="btn btn-default">A</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=b"
+			class="btn btn-default">B</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=c"
+			class="btn btn-default">C</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=d"
+			class="btn btn-default">D</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=g"
+			class="btn btn-default">G</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=e"
+			class="btn btn-default">E</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=f"
+			class="btn btn-default">F</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=g"
+			class="btn btn-default">G</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=h"
+			class="btn btn-default">H</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=i"
+			class="btn btn-default">I</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=j"
+			class="btn btn-default">J</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=k"
+			class="btn btn-default">K</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=l"
+			class="btn btn-default">L</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=m"
+			class="btn btn-default">M</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=n"
+			class="btn btn-default">N</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=o"
+			class="btn btn-default">O</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=p"
+			class="btn btn-default">P</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=r"
+			class="btn btn-default">R</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=s"
+			class="btn btn-default">S</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=t"
+			class="btn btn-default">T</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=u"
+			class="btn btn-default">U</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=v"
+			class="btn btn-default">V</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=x"
+			class="btn btn-default">X</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=w"
+			class="btn btn-default">W</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=y"
+			class="btn btn-default">Y</a>
+		<a href="/MusicStore/pages/search/alphabet/showResult.xhtml?letter=z"
+			class="btn btn-default">Z</a>
+	</div>
+</div>
+<br></br>
+</h:html>

@@ -1,0 +1,208 @@
+package controller.startup;
+
+import java.io.Serializable;
+import java.util.HashSet;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+
+import model.Album;
+import model.Artist;
+import model.Store;
+import model.Track;
+import model.product.Product;
+import model.product.ProductType;
+import service.AlbumEJB;
+import service.ArtistEJB;
+import service.ProductEJB;
+import service.StoreEJB;
+import service.TrackEJB;
+
+/**
+ * @author ilja Uses for generating fixture data.
+ */
+@Named
+@SessionScoped
+public class FixtureController implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private EntityManager entityManager;
+
+	@Inject
+	private ArtistEJB artistEJB;
+
+	@Inject
+	private AlbumEJB albumEJB;
+
+	@Inject
+	private TrackEJB trackEJB;
+
+	@Inject
+	private StoreEJB storeEJB;
+
+	@Inject
+	private ProductEJB productEJB;
+
+	public void generate() {
+		// STORES
+		Store store = new Store();
+		store.setName("Store In Prague 9 Street 11 - 456");
+		storeEJB.create(store);
+
+		Store storeInCenter = new Store();
+		storeInCenter.setName("Store In Prague 1 Under Clock Tower");
+		storeEJB.create(storeInCenter);
+		storeEJB.flushEm();
+		// STORES END
+
+		// ARTIST START
+		Artist pinkFloyd = new Artist();
+		pinkFloyd.setName("Pink Floyd");
+		pinkFloyd
+				.setDescription("Pink Floyd were an English rock band that achieved international acclaim with their progressive and psychedelic music. Distinguished by their use of philosophical lyrics, sonic experimentation, and elaborate live shows, they are one of the most commercially successful and musically influential groups in the history of popular music.");
+		artistEJB.create(pinkFloyd);
+
+		Artist pharrelWilliams = new Artist();
+		pharrelWilliams.setName("Pharrell Williams");
+		pharrelWilliams
+				.setDescription("Pharrell Williams (born April 5, 1973), also known simply as Pharrell, is an American singer-songwriter, rapper, record producer, fashion designer, and drummer. Williams and Chad Hugo make up the record production duo The Neptunes, producing soul, hip hop and R&B music. He is also the lead vocalist and drummer of rock, funk, and hip hop band N.E.R.D, which he formed with Hugo and childhood friend Shay Haley. He released his first single Frontin in 2003 and followed up with his first album In My Mind in 2006.[1]");
+		artistEJB.create(pharrelWilliams);
+
+		Artist POD = new Artist();
+		POD.setName("P.O.D");
+		POD.setDescription("Payable on Death (abbreviated as P.O.D.)[9] is an American Christian nu metal band formed in 1992. The band's line-up consists of vocalist Sonny Sandoval, drummer Wuv Bernardo, guitarist Marcos Curiel, and bassist Traa Daniels.");
+		artistEJB.create(POD);
+
+		Artist McCartney = new Artist();
+		McCartney.setName("Paul McCartney");
+		McCartney
+				.setDescription("Sir James Paul McCartney, MBE (born 18 June 1942) is an English musician, singer, songwriter, multi-instrumentalist and composer.");
+		artistEJB.create(McCartney);
+
+		Artist pearlJam = new Artist();
+		pearlJam.setName("Pearl Jam");
+		pearlJam.setDescription("Pearl Jam is an American rock band that formed in Seattle, Washington, in 1990. Since its inception, the band's line-up has included Stone Gossard (guitar), Jeff Ament (bass), Mike McCready (guitar), and Eddie Vedder (vocals).");
+		artistEJB.create(pearlJam);
+
+		Artist placebo = new Artist();
+		placebo.setName("Palcebo");
+		placebo.setDescription("Placebo are an English alternative rock band, formed in London in 1994 by singer-guitarist Brian Molko and guitarist-bassist Stefan Olsdal.");
+		artistEJB.create(placebo);
+
+		artistEJB.flushEm();
+		// ARTIST END
+
+		// TRACKS START
+		HashSet<Artist> authors = new HashSet<>();
+		authors.add(pinkFloyd);
+
+		Track theThinIce = new Track();
+		theThinIce.setName("The Thin Ice");
+		theThinIce.setArtists(authors);
+		trackEJB.create(theThinIce);
+
+		Track brickInTheWall = new Track();
+		brickInTheWall.setName("Another Brick in the Wall");
+		brickInTheWall.setArtists(authors);
+		trackEJB.create(brickInTheWall);
+
+		Track doNotLeaveMeNow = new Track();
+		doNotLeaveMeNow.setName("Dont Leave Me Now");
+		doNotLeaveMeNow.setArtists(authors);
+		trackEJB.create(doNotLeaveMeNow);
+
+		Track isThere = new Track();
+		isThere.setName("Is There Anybody Out There?");
+		isThere.setArtists(authors);
+		trackEJB.create(isThere);
+
+		Track comfortablyNumb = new Track();
+		comfortablyNumb.setName("Comfortably Numb");
+		comfortablyNumb.setArtists(authors);
+		trackEJB.create(comfortablyNumb);
+
+		Track hell = new Track();
+		hell.setName("Run Like Hell");
+		hell.setArtists(authors);
+		trackEJB.create(hell);
+		// TRACKS END
+
+		// ALBUMS START
+		Album theWall = new Album();
+		theWall.setName("The Wall");
+		theWall.setArtists(authors);
+		HashSet<Track> tracks = new HashSet<>();
+		tracks.add(hell);
+		tracks.add(comfortablyNumb);
+		tracks.add(brickInTheWall);
+		tracks.add(doNotLeaveMeNow);
+		tracks.add(theThinIce);
+		tracks.add(isThere);
+		theWall.setTracks(tracks);
+		theWall.setDescription("The Wall is the eleventh studio album by the English progressive rock group Pink Floyd. Released as a double album on 30 November 1979, it was subsequently performed live with elaborate theatrical effects, and adapted into a feature film, Pink Floyd – The Wall.");
+		theWall.setReleaseYear(1979);
+		albumEJB.create(theWall);
+		albumEJB.flushEm();
+		// ALBUMS END
+
+		// PRODUCTS START
+		Product theWallCD = new Product();
+		theWallCD.setAlbum(theWall);
+		theWallCD.setStoreInWhichLocated(storeInCenter);
+		theWallCD.setQuantity(12);
+		theWallCD.setAlbumType(ProductType.CD);
+		productEJB.create(theWallCD);
+
+		Product theWallLP = new Product();
+		theWallLP.setAlbum(theWall);
+		theWallLP.setStoreInWhichLocated(store);
+		theWallLP.setQuantity(3);
+		theWallLP.setAlbumType(ProductType.LP);
+		productEJB.create(theWallLP);
+		// PRODUCTS END
+	}
+
+	public ArtistEJB getArtistEJB() {
+		return artistEJB;
+	}
+
+	public void setArtistEJB(ArtistEJB artistEJB) {
+		this.artistEJB = artistEJB;
+	}
+
+	public AlbumEJB getAlbumEJB() {
+		return albumEJB;
+	}
+
+	public void setAlbumEJB(AlbumEJB albumEJB) {
+		this.albumEJB = albumEJB;
+	}
+
+	public TrackEJB getTrackEJB() {
+		return trackEJB;
+	}
+
+	public void setTrackEJB(TrackEJB trackEJB) {
+		this.trackEJB = trackEJB;
+	}
+
+	public StoreEJB getStoreEJB() {
+		return storeEJB;
+	}
+
+	public void setStoreEJB(StoreEJB storeEJB) {
+		this.storeEJB = storeEJB;
+	}
+
+	public ProductEJB getProductEJB() {
+		return productEJB;
+	}
+
+	public void setProductEJB(ProductEJB productEJB) {
+		this.productEJB = productEJB;
+	}
+
+}

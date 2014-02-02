@@ -1,0 +1,60 @@
+package service.authentication;
+
+import java.security.Principal;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
+import model.auth.User;
+
+@DeclareRoles({ "TutorialUser", "DIRECTOR" })
+@LocalBean
+@Stateless
+@Named
+@Deprecated
+public class UserEJB {
+
+	@Resource
+	SessionContext ctx;
+
+	@PersistenceContext
+	private EntityManager em;
+
+	public User findByUsername(String username) {
+		try {
+			TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_USERNAME,
+					User.class);
+			query.setParameter("username", username);
+			return query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public List<User> getAllUsers() {
+		TypedQuery<User> query = em.createNamedQuery(User.FIND_ALL, User.class);
+		return query.getResultList();
+	}
+
+	@RolesAllowed("TutorialUser")
+	public boolean create(User user) {
+		em.persist(user);
+		return true;
+	}
+
+	public void login() {
+		Principal callerPrincipal = ctx.getCallerPrincipal();
+		String callerKey = callerPrincipal.getName();
+	}
+
+}

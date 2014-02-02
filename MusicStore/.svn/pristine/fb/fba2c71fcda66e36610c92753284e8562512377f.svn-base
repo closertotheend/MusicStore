@@ -1,0 +1,98 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+/**
+ * @author ilja
+ * @param <T>
+ *  CRUD DAO operations for EJBs
+ */
+/**
+ * @author ilja
+ * 
+ * @param <T>
+ */
+public abstract class BaseFacade<T> {
+
+	private Class<T> entityClass;
+
+	public BaseFacade(Class<T> entityClass) {
+		this.entityClass = entityClass;
+	}
+
+	/**
+	 * @return injected Entitymanager
+	 */
+	protected abstract EntityManager getEntityManager();
+
+	/**
+	 * @param entity
+	 * @return true if persisted persists entity
+	 * 
+	 */
+	public boolean create(T entity) {
+		try {
+			getEntityManager().persist(entity);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * @param entity
+	 */
+	public void update(T entity) {
+		getEntityManager().merge(entity);
+	}
+
+	/**
+	 * @param entity
+	 * 
+	 */
+	public void delete(T entity) {
+		getEntityManager().remove(entity);
+	}
+
+	/**
+	 * @return all entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<T> findAll() {
+		Query q = getEntityManager().createQuery(
+				"SELECT e FROM " + entityClass.getName() + " e");
+		List<T> list = (List<T>) q.getResultList();
+		return list;
+	}
+
+	/**
+	 * @param id
+	 * @return entity with given id
+	 */
+	public T find(long id) {
+		T e = getEntityManager().find(entityClass, id);
+		return e;
+	}
+
+	/**
+	 * @return sum of entities of given T type
+	 */
+	public long count() {
+		return ((Long) getEntityManager().createQuery(
+				"select count(e) from " + entityClass.getName() + " as e")
+				.getSingleResult()).intValue();
+	}
+
+	/**
+	 * flushes entitymanger
+	 */
+	public void flushEm() {
+		getEntityManager().flush();
+	}
+
+}

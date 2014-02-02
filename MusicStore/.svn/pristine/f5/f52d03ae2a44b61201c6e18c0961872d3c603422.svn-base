@@ -1,0 +1,51 @@
+package controller.track;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
+import model.Artist;
+import model.Track;
+import service.ArtistEJB;
+import service.TrackEJB;
+
+/**
+ * @author ilja
+ *
+ */
+@FacesConverter("trackConverter")
+public class TrackConverter implements Converter {
+
+	@Inject
+	private TrackEJB trackEJB;
+
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent component,
+			String value) {
+		return getTrackEJB().find(Long.parseLong(value));
+	}
+
+	@Override
+	public String getAsString(FacesContext context, UIComponent component,
+			Object value) {
+		String val = null;
+		try {
+			Track track = (Track) value;
+			val = Long.toString(track.getId());
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+		}
+		return val;
+	}
+
+	public TrackEJB getTrackEJB() {
+		return trackEJB;
+	}
+
+	public void setTrackEJB(TrackEJB artistEJB) {
+		this.trackEJB = artistEJB;
+	}
+
+}

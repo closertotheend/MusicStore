@@ -1,0 +1,38 @@
+package dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import model.Album;
+
+public class DAO_Album extends DAO {
+	
+		// Get all albums with informations from the table Album of the database
+	    public List<Album> getAll() {
+	        try {
+	            this.con = getConnection();
+	            Statement st = this.con.createStatement();
+	            ResultSet rs = st.executeQuery("SELECT id, name, releaseYear, description FROM Album");
+
+	            rs.last();
+	            List<Album> liste = new ArrayList<Album>();
+
+	            rs.beforeFirst();
+	            while (rs.next()) {
+	                liste.add(new Album(rs.getLong("id"), rs.getString("name"), rs.getInt("releaseYear"), rs.getString("description")));
+	            }
+	            rs.close();
+	            st.close();
+	            this.con.close();
+	            return liste;
+	        } catch (SQLException ex) {
+	            Logger.getLogger(DAO_Album.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	        return null;
+	    }
+}

@@ -1,0 +1,89 @@
+package model.auth;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+/**
+ * Entity implementation class for Entity: User
+ * 
+ */
+@Deprecated
+@Entity
+@NamedQueries({
+		@NamedQuery(name = User.FIND_ALL, query = "SELECT u FROM User u"),
+		@NamedQuery(name = User.FIND_BY_ID, query = "SELECT u FROM User u where u.id = :userId"),
+		@NamedQuery(name = User.FIND_BY_USERNAME, query = "SELECT u FROM User u where u.username = :username") })
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	public static final String FIND_BY_USERNAME = "User.findByUsername";
+	public static final String FIND_BY_ID = "User.findById";
+	public static final String FIND_ALL = "User.findAll";
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	private String username;
+	private String password;
+
+	@Enumerated
+	private UserRole userRole = UserRole.USER;
+
+	public User(long id, String username, String password, UserRole userRole) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.userRole = userRole;
+	}
+
+	public User() {
+		super();
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String name) {
+		this.username = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password="
+				+ password + ", userRole=" + userRole + "]";
+	}
+
+}

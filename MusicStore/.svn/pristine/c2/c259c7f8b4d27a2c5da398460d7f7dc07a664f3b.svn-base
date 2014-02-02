@@ -1,0 +1,87 @@
+package service.abstractions;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ * @author ilja
+ * @param <T>
+ *            CRUD DAO operations for EJBs
+ */
+public abstract class AbstractFacade<T> {
+
+	private final Class<T> entityClass;
+
+	public AbstractFacade(Class<T> entityClass) {
+		this.entityClass = entityClass;
+	}
+
+	@PersistenceContext
+	private EntityManager em;
+
+	/**
+	 * @return injected Entitymanager
+	 */
+	protected EntityManager getEm() {
+		return em;
+	}
+
+	/**
+	 * @param entity
+	 * @return true if persisted persists entity
+	 * 
+	 */
+	public void create(T entity) {
+		getEm().persist(entity);
+	}
+
+	/**
+	 * @param entity
+	 */
+	public void update(T entity) {
+		getEm().merge(entity);
+	}
+
+	/**
+	 * @param entity
+	 * 
+	 */
+	public void delete(T entity) {
+		getEm().remove(entity);
+	}
+
+	/**
+	 * @return all entities
+	 */
+	public List<T> findAll() {
+		return getEm().createQuery(
+				"SELECT e FROM " + entityClass.getName() + " e", entityClass)
+				.getResultList();
+	}
+
+	/**
+	 * @param id
+	 * @return entity with given id
+	 */
+	public T find(long id) {
+		return getEm().find(entityClass, id);
+	}
+
+	/**
+	 * @return sum of entities of given T type
+	 */
+	public long count() {
+		return ((Long) getEm().createQuery(
+				"select count(e) from " + entityClass.getName() + " as e")
+				.getSingleResult()).longValue();
+	}
+
+	/**
+	 * flushes entitymanger
+	 */
+	public void flushEm() {
+		getEm().flush();
+	}
+}

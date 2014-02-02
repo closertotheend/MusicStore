@@ -1,12 +1,11 @@
 package service;
 
-import java.security.Principal;
-
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
@@ -47,9 +46,9 @@ public class UserEJB extends AbstractFacade<User> {
 		super.create(user);
 	}
 
-	public void login() {
-		Principal callerPrincipal = ctx.getCallerPrincipal();
-		String callerKey = callerPrincipal.getName();
+	@Override
+	public EntityManager getEm() {
+		return super.getEm();
 	}
 
 }

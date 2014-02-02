@@ -1,0 +1,26 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="title">Artsist Albums</ui:define>
+	<ui:define name="content">
+		<ui:include src="/resources/templates/basic/basic_form.xhtml">
+			<ui:param name="header" value="Artist Albums Found:" />
+		</ui:include>
+
+		<h:dataTable
+			value="#{albumController.getAlbumsByArtistId((param['artistId']))}"
+			var="record">
+			<h:column>
+				<h:link value="#{record.name}"
+					outcome="/pages/track/showTracksByAlbum.xhtml">
+					<f:param name="artistId" value="#{record.id}" />
+				</h:link>
+			</h:column>
+		</h:dataTable>
+
+	</ui:define>
+</ui:composition>
+</h:html>

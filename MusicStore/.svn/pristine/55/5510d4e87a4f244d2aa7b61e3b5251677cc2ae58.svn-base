@@ -1,0 +1,64 @@
+package service.other;
+
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
+import model.other.Post;
+
+@Named
+@Stateless
+@LocalBean
+public class PostEJB {
+
+	@PersistenceContext
+	private EntityManager em;
+
+	public List<Post> findAll() {
+		return em.createNamedQuery(Post.FIND_ALL, Post.class).getResultList();
+
+	}
+
+	public boolean create(Post post) {
+		em.persist(post);
+		return true;
+	}
+
+	public void deleteSinglePost(long postId) {
+		TypedQuery<Post> query = em.createNamedQuery(Post.DELETE_BY_ID,
+				Post.class);
+		query.setParameter("postId", postId);
+		query.executeUpdate();
+	}
+
+	public Post getPostById(long postId) {
+		try {
+			TypedQuery<Post> query = em.createNamedQuery(Post.FIND_BY_ID,
+					Post.class);
+			query.setParameter("postId", postId);
+			return query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public List<Post> getPostsFromTo(int firstResult, int maxResults) {
+		TypedQuery<Post> query = em.createNamedQuery(
+				Post.FIND_ALL_IN_REVERSE_ORDER, Post.class);
+		query.setMaxResults(maxResults);
+		query.setFirstResult(firstResult);
+		return query.getResultList();
+	}
+
+	public int getPostsCount() {
+		return ((Long) em.createQuery("select count(p) from Post as p")
+				.getSingleResult()).intValue();
+	}
+
+}

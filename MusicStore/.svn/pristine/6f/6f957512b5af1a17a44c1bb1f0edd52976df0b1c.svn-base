@@ -1,0 +1,33 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Customer administration</title>
+</h:head>
+
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="content">
+		There is #{postController.postsCount} posts.
+		<hr />
+
+		<ui:repeat var="post"
+			value="#{postController.getPostsByPage(param['page'])}">
+			<ui:include src="/resources/templates/post/basic_post_well.xhtml">
+				<ui:param name="post" value="#{post}" />
+			</ui:include>
+		</ui:repeat>
+
+
+		<ul class="pagination">
+			<li><a href="#">&#171;</a></li>
+			<c:forEach var="i" begin="1" end="#{postController.numberOfPostPages}">
+				<li><a href="?page=${i}">${i}</a></li>
+			</c:forEach>
+			<li><a href="#">&#187;</a></li>
+		</ul>
+
+	</ui:define>
+</ui:composition>
+</h:html>

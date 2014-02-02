@@ -1,0 +1,28 @@
+package service;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import model.product.Product;
+
+@Stateless
+@LocalBean
+@Named
+public class ProductEJB extends BaseDAO<Product> {
+
+	public ProductEJB() {
+		super(Product.class);
+	}
+
+	@PersistenceContext
+	private EntityManager em;
+
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
+	}
+
+}

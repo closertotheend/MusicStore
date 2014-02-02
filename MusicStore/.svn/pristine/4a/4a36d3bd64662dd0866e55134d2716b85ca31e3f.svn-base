@@ -1,0 +1,11 @@
+package model.auth;
+
+import java.io.Serializable;
+/**
+ * @author ilja
+ *	Roles of the users
+ */
+@Deprecated
+public enum UserRole implements Serializable {
+	USER, ADMIN, MODERATOR;
+}
