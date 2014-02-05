@@ -26,7 +26,8 @@ public class StoreEJB extends AbstractFacade<Store> {
 
 	@Override
 	public void delete(final Store entity) {
-		super.delete(entity);
+		System.err.println(entity.getProducts());
+		super.delete(entity);  
 	}
 
 	public ProductEJB getProductEJB() {

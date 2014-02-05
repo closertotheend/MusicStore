@@ -28,7 +28,7 @@ public class AlpahbetSearchController implements Serializable {
 	 */
 	public List<Artist> searchByLetter(final char c) {
 		return artistEJB.findByFirstLetter(c);
-	}
+	} 
 
 	public ArtistEJB getArtistEJB() {
 		return artistEJB;

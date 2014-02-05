@@ -21,5 +21,5 @@ public class StoreConverter extends AbstractConverter<Store> {
 	protected AbstractFacade<Store> getCurrentEntityEJB() {
 		return storeEJB;
 	}
-
+ 
 }
