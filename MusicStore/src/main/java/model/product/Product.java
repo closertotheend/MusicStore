@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import model.Album;
+import model.Artist;
 import model.Store;
 import model.abstractions.EntityInterface;
 
@@ -18,9 +21,10 @@ import model.abstractions.EntityInterface;
  * @author ilja Product is physical album (CD LP EP)
  */
 @Entity
+@NamedQueries({ @NamedQuery(name = Product.GET_PRODUCTS_BY_STORE_ID, query = "SELECT p FROM Product p where p.storeInWhichLocated.id = :id") })
 public class Product implements Serializable, EntityInterface {
 	private static final long serialVersionUID = 1L;
-
+	public final  static String GET_PRODUCTS_BY_STORE_ID= "Store.getProductsByStoreId";
 	public Product() {
 		super();
 	}

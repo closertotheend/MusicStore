@@ -1,0 +1,55 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/resources/templates/basic/template.xhtml">
+	<ui:define name="title">Edit Product</ui:define>
+	<ui:define name="content">
+		<ui:include src="/resources/templates/basic/basic_form.xhtml">
+			<ui:param name="header" value="Edit Product Form" />
+		</ui:include>
+
+		<h:form>
+			<h3>3) Select Type Of The Product:</h3>
+			<div class="form-group">
+				<h:selectOneMenu id="type"
+					value="#{productUpdateController.product.albumType}">
+					<f:selectItems
+						value="#{productTypeEnumController.productTypeValues}" />
+				</h:selectOneMenu>
+			</div>
+			<hr />
+
+			<h3>4) Select Shop Of The Product:</h3>
+			<div class="form-group">
+				<h:selectOneMenu id="store"
+					value="#{productUpdateController.product.storeInWhichLocated}">
+					<f:selectItems value="#{storeController.all}" var="store"
+						itemLabel="#{store.name}" itemValue="#{store}" />
+					<f:converter converterId="storeConverter" />
+				</h:selectOneMenu>
+			</div>
+			<hr />
+
+			<h3>5) Select Quantity Of The Product:</h3>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-2">
+						<h:inputText id="quantity" label="Quantity"
+							value="#{productUpdateController.product.quantity}"
+							class="form-control">
+							<f:validateLongRange minimum="1" maximum="2000" />
+							<f:validateRequired />
+						</h:inputText>
+					</div>
+				</div>
+				<h:message for="quantity" style="color:red" />
+			</div>
+			<h:commandButton class="btn btn-default" value="Save!"
+				action="#{productUpdateController.update}" />
+		</h:form>
+		<hr />
+
+	</ui:define>
+</ui:composition>
+</h:html>

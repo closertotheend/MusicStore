@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ import model.abstractions.EntityInterface;
  * 
  */
 @Entity
-// @Cacheable(value = false)
+@Cacheable(value = false)
 @NamedQueries({ @NamedQuery(name = Artist.FIND_BY_NAME_PATTERN, query = "SELECT a FROM Artist a where a.name LIKE :pattern") })
 public class Artist implements Serializable, EntityInterface {
 	private static final long serialVersionUID = 1L;

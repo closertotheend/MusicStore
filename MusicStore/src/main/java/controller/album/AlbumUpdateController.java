@@ -48,6 +48,10 @@ public class AlbumUpdateController implements Serializable {
 		albumEJB.update(album);
 	}
 
+	public String setAlbum(final Album albumToBeEdited) {
+		this.album = albumToBeEdited;
+		return AddressHelper.albumEditPage;
+	}
 	// Getters, Setters
 
 	public AlbumEJB getAlbumEJB() {
@@ -62,10 +66,6 @@ public class AlbumUpdateController implements Serializable {
 		return album;
 	}
 
-	public String setAlbum(final Album albumToBeEdited) {
-		this.album = albumToBeEdited;
-		return AddressHelper.albumEditPage;
-	}
 
 	public Artist getArtistWhoWillBeAddedToTheAlbum() {
 		return artistWhoWillBeAddedToTheAlbum;

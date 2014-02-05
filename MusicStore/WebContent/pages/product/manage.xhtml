@@ -17,8 +17,14 @@
 				#{record.toString()}  
 				</h:column>
 				<h:column>
+					<f:facet name="header">Edit</f:facet>
+					<h:commandButton value="Edit" class="btn btn-default"
+						action="#{productUpdateController.setProduct(record)}" />
+				</h:column>
+				<h:column>
 					<f:facet name="header">Delete</f:facet>
-					<h:commandButton value="Delete" onclick="return deleteConfirm()" class="btn btn-default"
+					<h:commandButton value="Delete" onclick="return deleteConfirm()"
+						class="btn btn-default"
 						action="#{productController.delete(record.id)}" />
 				</h:column>
 			</h:dataTable>
