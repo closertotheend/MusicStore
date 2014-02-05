@@ -33,27 +33,27 @@ public class AbstractFacadeTest {
 		when(abstractFacade.getEm()).thenReturn(fakeEm);
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testGetEm() throws Exception {
 		abstractFacade.getEm();
 		verify(abstractFacade).getEm();
 		assertFalse(abstractFacade.getEm().contains(entity));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testCreate() throws Exception {
 		abstractFacade.create(entity);
 		verify(abstractFacade.getEm()).persist(entity);
 		assertTrue(abstractFacade.getEm().contains(entity));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testUpdate() throws Exception {
 		abstractFacade.update(entity);
 		verify(abstractFacade).update(entity);
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testDelete() throws Exception {
 		abstractFacade.create(entity);
 		assertTrue(abstractFacade.getEm().contains(entity));
@@ -62,7 +62,7 @@ public class AbstractFacadeTest {
 		assertFalse(abstractFacade.getEm().contains(entity));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testFindAll() throws Exception {
 		abstractFacade.create(entity);
 		FakeEntity entity2 = new FakeEntity(12);
@@ -71,7 +71,7 @@ public class AbstractFacadeTest {
 		assertTrue(abstractFacade.findAll().size() == 2);
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testFind() throws Exception {
 		assertFalse(abstractFacade.getEm().contains(entity));
 		FakeEntity entity2 = new FakeEntity(12);
@@ -87,7 +87,7 @@ public class AbstractFacadeTest {
 		verify(abstractFacade.getEm()).find(FakeEntity.class, 13l);
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testCount() throws Exception {
 		FakeEntity entity2 = new FakeEntity(12);
 		FakeEntity entity3 = new FakeEntity(16);
@@ -97,7 +97,7 @@ public class AbstractFacadeTest {
 		assertEquals(3, abstractFacade.count());
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testFlushEm() throws Exception {
 		abstractFacade.flushEm();
 		verify(abstractFacade.getEm()).flush();

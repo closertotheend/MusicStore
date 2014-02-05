@@ -1,6 +1,11 @@
 C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\fem\FakeEntityManagerTest.java
+C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\fakeentity\FakeEntityEJB.java
 C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\service\abstractions\AbstractFacadeTest.java
 C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\fem\FakeQuery.java
+C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\JUnitTestBase.java
+C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\fakesession\FakePrincipal.java
 C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\fem\FakeTypedQuery.java
-C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\FakeEntityEJB.java
+C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\service\authentication\AuthenticationEJBTest.java
+C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\fakesession\FakeSessionContext.java
 C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\fem\FakeEntityManager.java
+C:\Users\ilja\git\MusicStore\MusicStore\src\test\java\testutil\fakeentity\FakeEntity.java

@@ -13,12 +13,20 @@ import testutil.IntegrationTestBase;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AlbumEJBIntegrationTest extends IntegrationTestBase {
-	private final Album theWall = new Album();
+	private Album theWall;
+
+	@Override
+	public void initBeforeEachTest() {
+		theWall = new Album();
+		theWall.setName("The Wall");
+		theWall.setDescription("The Wall is the eleventh studio album by the English progressive rock group Pink Floyd. Released as a double album on 30 November 1979, it was subsequently performed live with elaborate theatrical effects, and adapted into a feature film, Pink Floyd – The Wall.");
+		super.initBeforeEachTest();
+	}
 
 	@Test
 	public void testDelete() throws Exception {
 		assertEquals(0, albumEJB.count());
-		theWall.setName("The Wall");
+
 		Product product = new Product();
 		product.setAlbum(theWall);
 		productEJB.create(product);

@@ -25,18 +25,18 @@ public class TrackEJBTest {
 		when(trackEJB.getEntityManager()).thenReturn(entityManager);
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testGetEntityManager() throws Exception {
 		assertNotNull(trackEJB.getEntityManager());
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testGetTracksByArtists() throws Exception {
 		Artist pink = new Artist();
 		pink.setTracks(new Set<Tracks>);
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testCreate() throws Exception {
 		Track track = new Track();
 		track.setLyrics("Lalala");
@@ -49,7 +49,7 @@ public class TrackEJBTest {
 		assertNull(trackEJB.find(3));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testUpdate() throws Exception {
 		Track track = new Track();
 		track.setLyrics("Lalala");
@@ -59,7 +59,7 @@ public class TrackEJBTest {
 		assertEquals(trackEJB.find(1).getLyrics(), "Lalala");
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testDelete() throws Exception {
 		Track track = new Track();
 		track.setLyrics("Lalala");
@@ -69,18 +69,18 @@ public class TrackEJBTest {
 		assertNull(trackEJB.find(1));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testFindAll() throws Exception {
 		assertNull(trackEJB.find(2));
 		//trackEJB.findAll();
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testFind() throws Exception {
 		throw new RuntimeException("not yet implemented");
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testCount() throws Exception {
 		throw new RuntimeException("not yet implemented");
 	}

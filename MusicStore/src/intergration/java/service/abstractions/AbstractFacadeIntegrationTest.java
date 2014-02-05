@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import testutil.FakeEntity;
 import testutil.IntegrationTestBase;
+import testutil.fakeentity.FakeEntity;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbstractFacadeIntegrationTest extends IntegrationTestBase {
@@ -29,6 +29,7 @@ public class AbstractFacadeIntegrationTest extends IntegrationTestBase {
 	public void testCreate() {
 		abstractFacade.create(entity);
 		assertTrue(abstractFacade.getEm().contains(entity));
+		assertEquals(1, abstractFacade.count());
 	}
 
 	@Test

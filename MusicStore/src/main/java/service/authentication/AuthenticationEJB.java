@@ -11,8 +11,6 @@ import javax.ejb.Stateful;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,10 +24,7 @@ import service.UserEJB;
 public class AuthenticationEJB {
 
 	@Resource
-	SessionContext ctx;
-
-	@PersistenceContext(unitName = "MusicStore")
-	private EntityManager em;
+	private SessionContext ctx;
 
 	@Inject
 	private UserEJB userEJB;
@@ -40,16 +35,20 @@ public class AuthenticationEJB {
 	private User currentUser;
 
 	public boolean isUserAuthenticated() {
-		return !ctx.getCallerPrincipal().getName().equals("ANONYMOUS");
+		try {
+			return !getCtx().getCallerPrincipal().getName().equals("ANONYMOUS");
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public String getRealmUsername() {
-		return ctx.getCallerPrincipal().getName();
+		return getCtx().getCallerPrincipal().getName();
 	}
 
 	public String getRealmGroup() {
 		try {
-			return currentUser.getUserRole().getRole();
+			return getCurrentUser().getUserRole().getRole();
 		} catch (Exception e) {
 			return "Undefined group";
 		}
@@ -70,14 +69,6 @@ public class AuthenticationEJB {
 
 	}
 
-	public UserEJB getUserEJB() {
-		return userEJB;
-	}
-
-	public void setUserEJB(final UserEJB userEJB) {
-		this.userEJB = userEJB;
-	}
-
 	public User getCurrentUser() {
 		return currentUser;
 	}
@@ -86,12 +77,12 @@ public class AuthenticationEJB {
 		this.currentUser = currentUser;
 	}
 
-	public Logger getLogger() {
-		return logger;
+	public SessionContext getCtx() {
+		return ctx;
 	}
 
-	public void setLogger(final Logger logger) {
-		this.logger = logger;
+	public UserEJB getUserEJB() {
+		return userEJB;
 	}
 
 }

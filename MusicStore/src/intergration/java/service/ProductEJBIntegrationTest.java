@@ -40,7 +40,22 @@ public class ProductEJBIntegrationTest extends IntegrationTestBase {
 	}
 
 	@Test
+	public void testDelete() {
+		albumEJB.create(theWall);
+		Product cd = new Product();
+		cd.setAlbumType(ProductType.CD);
+		productEJB.create(cd);
+		cd.setAlbum(theWall);
+
+		assertEquals(1, productEJB.count());
+		productEJB.delete(cd);
+		assertEquals(0, productEJB.count());
+		assertEquals(1, albumEJB.count());
+	}
+
+	@Test
 	public void testGetEm() {
 		assertNotNull(productEJB.getEm());
 	}
+
 }

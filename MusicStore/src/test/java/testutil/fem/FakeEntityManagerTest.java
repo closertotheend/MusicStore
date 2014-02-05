@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import testutil.FakeEntity;
+import testutil.fakeentity.FakeEntity;
 
 public class FakeEntityManagerTest {
 	private FakeEntityManager fem = new FakeEntityManager();

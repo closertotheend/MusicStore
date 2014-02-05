@@ -23,7 +23,7 @@ var defined = {
 
 var testId = 0;
 
-var Test = function(name, testName, expected, testEnvironmentArg, async, callback) {
+var .TestURLResponses = function(name, testName, expected, testEnvironmentArg, async, callback) {
 	this.name = name;
 	this.testName = testName;
 	this.expected = expected;
@@ -32,7 +32,7 @@ var Test = function(name, testName, expected, testEnvironmentArg, async, callbac
 	this.callback = callback;
 	this.assertions = [];
 };
-Test.prototype = {
+.TestURLResponses.prototype = {
 	init: function() {
 		var tests = id("qunit-tests");
 		if (tests) {
@@ -101,7 +101,7 @@ Test.prototype = {
 		try {
 			this.callback.call(this.testEnvironment);
 		} catch(e) {
-			fail("Test " + this.testName + " died, exception and test follows", e, this.callback);
+			fail(".TestURLResponses " + this.testName + " died, exception and test follows", e, this.callback);
 			QUnit.ok( false, "Died on test #" + (this.assertions.length + 1) + ": " + e.message + " - " + QUnit.jsDump.parse(e) );
 			// else next test will carry the responsibility
 			saveGlobal();
@@ -207,7 +207,7 @@ Test.prototype = {
 		try {
 			QUnit.reset();
 		} catch(e) {
-			fail("reset() failed, following Test " + this.testName + ", exception and reset fn follows", e, QUnit.reset);
+			fail("reset() failed, following .TestURLResponses " + this.testName + ", exception and reset fn follows", e, QUnit.reset);
 		}
 
 		QUnit.testDone( {
@@ -287,7 +287,7 @@ var QUnit = {
 			return;
 		}
 
-		var test = new Test(name, testName, expected, testEnvironmentArg, async, callback);
+		var test = new .TestURLResponses(name, testName, expected, testEnvironmentArg, async, callback);
 		test.module = config.currentModule;
 		test.moduleTestEnvironment = config.currentModuleTestEnviroment;
 		test.queue();
@@ -423,7 +423,7 @@ var QUnit = {
 		if ( timeout && defined.setTimeout ) {
 			clearTimeout(config.timeout);
 			config.timeout = window.setTimeout(function() {
-				QUnit.ok( false, "Test timed out" );
+				QUnit.ok( false, ".TestURLResponses timed out" );
 				QUnit.start();
 			}, timeout);
 		}
@@ -974,9 +974,9 @@ function id(name) {
 		document.getElementById( name );
 }
 
-// Test for equality any JavaScript type.
+// .TestURLResponses for equality any JavaScript type.
 // Discussions and reference: http://philrathe.com/articles/equiv
-// Test suites: http://philrathe.com/tests/equiv
+// .TestURLResponses suites: http://philrathe.com/tests/equiv
 // Author: Philippe Rathé <prathe@gmail.com>
 QUnit.equiv = function () {
 

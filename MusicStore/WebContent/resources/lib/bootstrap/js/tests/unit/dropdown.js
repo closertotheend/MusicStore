@@ -115,7 +115,7 @@ $(function () {
             '<ul class="nav">'
             + '    <li><a href="#menu1">Menu 1</a></li>'
             + '    <li class="dropdown" id="testmenu">'
-            + '      <a class="dropdown-toggle" data-toggle="dropdown" href="#testmenu">Test menu <b class="caret"></b></a>'
+            + '      <a class="dropdown-toggle" data-toggle="dropdown" href="#testmenu">.TestURLResponses menu <b class="caret"></b></a>'
             + '      <ul class="dropdown-menu" role="menu">'
             + '        <li><a href="#sub1">Submenu 1</a></li>'
             + '      </ul>'

@@ -66,12 +66,14 @@
 								outcome="/pages/product/manage?faces-redirect=true" /></li>
 					</ul></li>
 
-				<li class="dropdown"><a href="#" id="drop2" role="button"
-					class="dropdown-toggle" data-toggle="dropdown">Other <b
+				<li class="dropdown"><a href="#" id="store_drop" role="button"
+					class="dropdown-toggle" data-toggle="dropdown">Store<b
 						class="caret"></b></a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
 						<li><h:link value="Add Store"
 								outcome="/pages/store/add?faces-redirect=true" /></li>
+						<li><h:link value="Edit / Delete Store"
+								outcome="/pages/store/manage?faces-redirect=true" /></li>
 					</ul></li>
 			</ul>
 
@@ -85,12 +87,12 @@
 				<li><a href="#"><h:outputText
 							value="#{authenticationController.authenticationEJB.realmUsername}" /></a></li>
 			</ul>
-			
+
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#"><h:outputText
 							value="->>> #{authenticationController.authenticationEJB.realmGroup}" /></a></li>
 			</ul>
-							
+
 		</div>
 	</div>
 </div>

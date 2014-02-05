@@ -11,23 +11,23 @@
 		<class>model.Track</class>
 		<class>model.Album</class>
 		<class>model.product.Product</class>
+		<class>testutil.fakeentity.FakeEntity</class>
 		<properties>
 			<!-- use this property if target server is GlassFish V3 with EclipseLink -->
-			<!-- <property name="javax.persistence.schema-generation.database.action" -->
-			<!-- value="drop-and-create" /> -->
-			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="javax.persistence.schema-generation.database.action"
+			value="drop-and-create" />
 		</properties>
 	</persistence-unit>
 
 	<persistence-unit name="TEST">
-			<class>model.authentication.User</class>
+		<class>model.authentication.User</class>
 		<class>model.authentication.Role</class>
 		<class>model.Store</class>
 		<class>model.Artist</class>
 		<class>model.Track</class>
 		<class>model.Album</class>
 		<class>model.product.Product</class>
-		<class>testutil.FakeEntity</class>
+		<class>testutil.fakeentity.FakeEntity</class>
 		<!-- APACHE DERBY -->
 		<!-- <properties> <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" 
 			/> <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:chapter04DB;create=true" 

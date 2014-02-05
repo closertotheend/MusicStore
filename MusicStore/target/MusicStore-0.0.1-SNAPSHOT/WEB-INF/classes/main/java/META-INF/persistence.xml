@@ -5,29 +5,35 @@
 	<persistence-unit name="MusicStore">
 		<jta-data-source>jdbc/viralpatel</jta-data-source>
 		<class>model.authentication.User</class>
+		<class>model.authentication.Role</class>
 		<class>model.Store</class>
 		<class>model.Artist</class>
 		<class>model.Track</class>
 		<class>model.Album</class>
 		<class>model.product.Product</class>
-		<class>model.authentication.Role</class>
-		<class>model.FakeEntity</class>
+		<class>testutil.fakeentity.FakeEntity</class>
 		<properties>
 			<!-- use this property if target server is GlassFish V3 with EclipseLink -->
 			<property name="javax.persistence.schema-generation.database.action"
-				value="drop-and-create" />
+			value="drop-and-create" />
 		</properties>
 	</persistence-unit>
 
 	<persistence-unit name="TEST">
+		<class>model.authentication.User</class>
+		<class>model.authentication.Role</class>
+		<class>model.Store</class>
+		<class>model.Artist</class>
+		<class>model.Track</class>
 		<class>model.Album</class>
+		<class>model.product.Product</class>
+		<class>testutil.fakeentity.FakeEntity</class>
 		<!-- APACHE DERBY -->
 		<!-- <properties> <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" 
 			/> <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:chapter04DB;create=true" 
 			/> <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" 
 			/> </properties> -->
 		<!-- HSQLDB - FASTER -->
-
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb" />

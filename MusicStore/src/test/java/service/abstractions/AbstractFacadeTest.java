@@ -17,8 +17,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import testutil.FakeEntity;
-import testutil.FakeEntityEJB;
+import testutil.fakeentity.FakeEntity;
+import testutil.fakeentity.FakeEntityEJB;
 import testutil.fem.FakeEntityManager;
 
 @RunWith(MockitoJUnitRunner.class)

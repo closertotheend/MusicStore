@@ -20,6 +20,8 @@ import service.TrackEJB;
 import service.UserEJB;
 import service.abstractions.AbstractFacade;
 import service.authentication.AuthenticationEJB;
+import testutil.fakeentity.FakeEntity;
+import testutil.fakeentity.FakeEntityEJB;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IntegrationTestBase {

@@ -32,7 +32,6 @@ public class ProductEJB extends AbstractFacade<Product> {
 	 */
 	public List<Product> getProductsByAlbumId(final long id) {
 		List<Product> all = findAll();
-		System.err.println(all);
 		List<Product> productsWithAlbumId = new ArrayList<>();
 		for (Product product : all) {
 			if (product.getAlbum().getId() == id) {

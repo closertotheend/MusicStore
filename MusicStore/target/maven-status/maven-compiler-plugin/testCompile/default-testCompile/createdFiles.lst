@@ -1,6 +1,11 @@
 testutil\fem\FakeQuery.class
 testutil\fem\FakeEntityManager.class
-testutil\FakeEntityEJB.class
+testutil\fakesession\FakeSessionContext.class
+service\authentication\AuthenticationEJBTest.class
+testutil\fakeentity\FakeEntityEJB.class
+testutil\fakeentity\FakeEntity.class
 testutil\fem\FakeTypedQuery.class
 testutil\fem\FakeEntityManagerTest.class
+testutil\fakesession\FakePrincipal.class
 service\abstractions\AbstractFacadeTest.class
+testutil\JUnitTestBase.class

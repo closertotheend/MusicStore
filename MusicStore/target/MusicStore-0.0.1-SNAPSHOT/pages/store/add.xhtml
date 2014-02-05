@@ -16,7 +16,7 @@
 			<div class="form-group">
 				<h:outputLabel value="Store Name:" />
 				<h:inputText class="form-control"
-					value="#{storeController.storeToBeCreated.name}"
+					value="#{storeCreateController.store.name}"
 					style="height: 27px; width: 427px;" label="Name"
 					id="nameOfTheStore">
 					<f:validateRequired />
@@ -24,7 +24,7 @@
 				<h:message for="nameOfTheStore" style="color:red" />
 			</div>
 			<h:commandButton class="btn btn-default" value="Save"
-				action="#{storeController.save}" />
+				action="#{storeCreateController.save}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

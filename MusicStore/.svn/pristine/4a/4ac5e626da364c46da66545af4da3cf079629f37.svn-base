@@ -102,8 +102,8 @@ $(function () {
         var popover = $('<a href="#">@fat</a>')
           .appendTo('#qunit-fixture')
           .popover({
-            title: 'Test'
-          , content: 'Test'
+            title: '.TestURLResponses'
+          , content: '.TestURLResponses'
           , template: '<div class="popover foobar"><div class="arrow"></div><div class="inner"><h3 class="title"></h3><div class="content"><p></p></div></div></div>'
           })
 

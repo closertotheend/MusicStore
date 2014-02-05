@@ -4,12 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -43,9 +45,11 @@ public class Album implements EntityInterface {
 	private String name;
 	private Integer releaseYear;
 
+	@Lob
+	@Column(length = 50000)
 	private String description;
 
-	@OneToMany(mappedBy = "album", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "album", orphanRemoval = true, cascade = CascadeType.REMOVE)
 	private Set<Product> products = new HashSet<>();
 
 	@ManyToMany

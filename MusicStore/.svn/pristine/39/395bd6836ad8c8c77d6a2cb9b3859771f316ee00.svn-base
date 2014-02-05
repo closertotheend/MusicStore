@@ -15,7 +15,7 @@ public class FakeEntityManagerTest {
 	private FakeEntity entity = new FakeEntity(1);
 	private FakeEntity entity2 = new FakeEntity(2);;
 
-	@Test
+	@.TestURLResponses
 	public void testPersist() {
 		fem.persist(entity);
 		fem.persist(entity2);
@@ -23,7 +23,7 @@ public class FakeEntityManagerTest {
 		assertTrue(fem.contains(entity2));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testContains() {
 		fem.persist(entity);
 		fem.persist(entity2);
@@ -31,7 +31,7 @@ public class FakeEntityManagerTest {
 		assertTrue(fem.contains(entity2));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testRemove() {
 		fem.persist(entity);
 		fem.persist(entity2);
@@ -41,14 +41,14 @@ public class FakeEntityManagerTest {
 		assertFalse(fem.contains(entity2));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testFindClassOfTObject() {
 		fem.persist(entity);
 		fem.persist(entity2);
 		assertEquals(entity, fem.find(FakeEntity.class, 1l));
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testCreateQueryStringClassOfT() {
 		fem.persist(entity);
 		fem.persist(entity2);
@@ -58,7 +58,7 @@ public class FakeEntityManagerTest {
 		assertTrue(resultList.size() == 2);
 	}
 
-	@Test
+	@.TestURLResponses
 	public void testCreateQueryString() {
 		fem.persist(entity);
 		fem.persist(entity2);
