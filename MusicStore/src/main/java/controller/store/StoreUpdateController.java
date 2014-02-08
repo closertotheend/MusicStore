@@ -24,13 +24,13 @@ public class StoreUpdateController implements Serializable {
 
 	private Store store;
 
-	public String setStoreById(final long id) {
-		this.setStore(storeEJB.find(id));
-		return AddressHelper.storeEditPage;
+	public void update() {
+		getStoreEJB().update(getStore());
 	}
 
-	public void update() {
-		storeEJB.update(getStore());
+	public String setStore(final Store store) {
+		this.store = store;
+		return AddressHelper.storeEditPage;
 	}
 
 	// getters setters
@@ -39,8 +39,12 @@ public class StoreUpdateController implements Serializable {
 		return store;
 	}
 
-	public void setStore(final Store store) {
-		this.store = store;
+	public StoreEJB getStoreEJB() {
+		return storeEJB;
+	}
+
+	public void setStoreEJB(StoreEJB storeEJB) {
+		this.storeEJB = storeEJB;
 	}
 
 }

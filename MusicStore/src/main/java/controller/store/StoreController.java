@@ -23,11 +23,20 @@ public class StoreController implements Serializable {
 	private StoreEJB storeEJB;
 
 	public void deleteStoreById(final long id) {
-		storeEJB.delete(storeEJB.find(id));
+		getStoreEJB().delete(getStoreEJB().find(id));
 	}
 
 	public List<Store> getAll() {
-		return storeEJB.findAll();
+		return getStoreEJB().findAll();
+	}
+
+	// GETTERS SETTERS
+	public StoreEJB getStoreEJB() {
+		return storeEJB;
+	}
+
+	public void setStoreEJB(StoreEJB storeEJB) {
+		this.storeEJB = storeEJB;
 	}
 
 }

@@ -25,10 +25,11 @@ public class StoreCreateController implements Serializable {
 	private Store store;
 
 	public void save() {
-		storeEJB.create(store);
+		getStoreEJB().create(store);
 		MessagesHelper.INSTANCE.showCreatedSuccessfullyMessage("store");
 	}
 
+	// GETERS SETTERS
 	public Store getStore() {
 		if (store == null) {
 			store = new Store();
@@ -39,6 +40,14 @@ public class StoreCreateController implements Serializable {
 
 	public void setStore(final Store storeToBeCreated) {
 		this.store = storeToBeCreated;
+	}
+
+	public StoreEJB getStoreEJB() {
+		return storeEJB;
+	}
+
+	public void setStoreEJB(StoreEJB storeEJB) {
+		this.storeEJB = storeEJB;
 	}
 
 }
