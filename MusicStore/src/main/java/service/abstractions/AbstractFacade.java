@@ -20,26 +20,11 @@ public abstract class AbstractFacade<T extends EntityInterface> {
 
 	private final Class<T> entityClass;
 
-	public AbstractFacade(final Class<T> entityClass) {
-		this.entityClass = entityClass;
-	}
-
 	@PersistenceContext(unitName = "MusicStore")
 	private EntityManager em;
 
-	/**
-	 * @return injected EntityManager
-	 */
-	public EntityManager getEm() {
-		return em;
-	}
-
-	/**
-	 * @param em
-	 *            entityManager to be set
-	 */
-	protected void setEm(final EntityManager em) {
-		this.em = em;
+	public AbstractFacade(final Class<T> entityClass) {
+		this.entityClass = entityClass;
 	}
 
 	/**
@@ -109,5 +94,20 @@ public abstract class AbstractFacade<T extends EntityInterface> {
 	 */
 	public void flushEm() {
 		getEm().flush();
+	}
+
+	/**
+	 * @return injected EntityManager
+	 */
+	public EntityManager getEm() {
+		return em;
+	}
+
+	/**
+	 * @param em
+	 *            entityManager to be set
+	 */
+	public void setEm(final EntityManager em) {
+		this.em = em;
 	}
 }

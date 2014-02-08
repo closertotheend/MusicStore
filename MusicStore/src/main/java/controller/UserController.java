@@ -28,14 +28,15 @@ public class UserController implements Serializable {
 	 * Persists user and shows success message
 	 */
 	public void save(final User user) {
-		userEJB.create(user);
+		getUserEJB().create(user);
 		MessagesHelper.INSTANCE.showCreatedSuccessfullyMessage("user");
 	}
 
 	public List<User> getAllUsers() {
-		return userEJB.findAll();
+		return getUserEJB().findAll();
 	}
 
+	// GETTERS SETTERS
 	public User getUser() {
 		if (user == null) {
 			user = new User();
@@ -45,5 +46,13 @@ public class UserController implements Serializable {
 
 	public void setUser(final User user) {
 		this.user = user;
+	}
+
+	public UserEJB getUserEJB() {
+		return userEJB;
+	}
+
+	public void setUserEJB(UserEJB userEJB) {
+		this.userEJB = userEJB;
 	}
 }
