@@ -1,4 +1,4 @@
-package controller;
+package controller.track;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -19,6 +19,7 @@ import service.AlbumEJB;
 import service.TrackEJB;
 import testutil.FakeFacesContext;
 import testutil.fem.FakeEntityManager;
+import controller.track.TrackController;
 import controller.util.MessagesHelper;
 
 public class TrackControllerTest {

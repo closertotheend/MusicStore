@@ -1,4 +1,4 @@
-package controller;
+package controller.user;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
@@ -16,6 +16,7 @@ import org.junit.Test;
 import service.UserEJB;
 import testutil.FakeFacesContext;
 import testutil.fem.FakeEntityManager;
+import controller.user.UserController;
 import controller.util.MessagesHelper;
 
 public class UserControllerTest {

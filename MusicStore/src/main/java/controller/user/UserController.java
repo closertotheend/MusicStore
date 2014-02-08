@@ -1,4 +1,4 @@
-package controller;
+package controller.user;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,9 +24,6 @@ public class UserController implements Serializable {
 	@Inject
 	private UserEJB userEJB;
 
-	/**
-	 * Persists user and shows success message
-	 */
 	public void save(final User user) {
 		getUserEJB().create(user);
 		MessagesHelper.INSTANCE.showCreatedSuccessfullyMessage("user");
