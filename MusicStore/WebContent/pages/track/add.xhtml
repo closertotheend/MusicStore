@@ -13,12 +13,12 @@
 		<h3>1) List Of Artists, who participated:</h3>
 
 		<h:form>
-			<h:dataTable value="#{trackController.trackToBeCreated.artists}"
+			<h:dataTable value="#{trackCreateController.track.artists}"
 				var="artist">
 				<h:column>
 					<h:outputText value="#{artist}" />
 					<h:commandLink value="Remove"
-						action="#{trackController.removeArtist(artist)}"  />
+						action="#{trackCreateController.removeArtist(artist)}"  />
 				</h:column>
 			</h:dataTable>
 		</h:form>
@@ -27,7 +27,7 @@
 		<h:form role="form">
 			<div class="form-group">
 				<h:selectOneListbox id="artistListbox" label="Listbox of artists"
-					value="#{trackController.artistOfAlbumWhoWillBeAdded}" required="true">
+					value="#{trackCreateController.artistOfTrack}" required="true">
 					<f:selectItems value="#{artistController.all}" var="artist"
 						itemLabel="#{artist.name}" itemValue="#{artist}" />
 					<f:converter converterId="artistConverter" />
@@ -37,7 +37,7 @@
 			</div>
 			<h:commandButton disabled="#{empty artistController.all}"
 				class="btn btn-default" value="Add artist"
-				action="#{trackController.addArtist()}" />
+				action="#{trackCreateController.addArtist()}" />
 		</h:form>
 		<br />
 
@@ -46,7 +46,7 @@
 			<div class="form-group">
 				<h:outputLabel for="nameOfTheTrack" value="Name of the track:" />
 				<h:inputText id="nameOfTheTrack" class="form-control"
-					value="#{trackController.trackToBeCreated.name}"
+					value="#{trackCreateController.track.name}"
 					style="height: 27px; width: 427px;" label="Name">
 					<f:validateLength minimum="1" maximum="1000" />
 					<f:validateRequired />
@@ -57,7 +57,7 @@
 				<h:outputLabel for="lyricsOfTheAlbum" value="Lyrics:" />
 				<h:inputTextarea row="20" col="40" id="descriptionOfTheAlbum"
 					class="form-control"
-					value="#{trackController.trackToBeCreated.lyrics}"
+					value="#{trackCreateController.track.lyrics}"
 					style="height: 114px; width: 427px; " label="Lyrics">
 					<f:validateLength minimum="1" maximum="1000" />
 					<f:validateRequired />
@@ -65,8 +65,8 @@
 				<h:message for="descriptionOfTheAlbum" style="color:red" />
 			</div>
 			<h:commandButton class="btn btn-default" value="Save"
-				action="#{trackController.save()}"
-				disabled="#{empty trackController.trackToBeCreated.artists}" />
+				action="#{trackCreateController.save()}"
+				disabled="#{empty trackCreateController.track.artists}" />
 		</h:form>
 
 	</ui:define>
