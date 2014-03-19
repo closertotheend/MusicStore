@@ -7,11 +7,7 @@ import javax.persistence.Id;
 
 import model.abstractions.EntityInterface;
 
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
 @Entity
-@RunWith(MockitoJUnitRunner.class)
 public class FakeEntity implements EntityInterface {
 	public FakeEntity(final long id) {
 		super();

@@ -16,10 +16,6 @@ import javax.ejb.TimerService;
 import javax.transaction.UserTransaction;
 import javax.xml.rpc.handler.MessageContext;
 
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-@RunWith(MockitoJUnitRunner.class)
 public class FakeSessionContext implements SessionContext {
 
 	private Principal fakePrincipal = spy(new FakePrincipal());

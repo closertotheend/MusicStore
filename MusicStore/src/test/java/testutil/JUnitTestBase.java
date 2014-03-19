@@ -6,14 +6,11 @@ import static org.mockito.Mockito.when;
 import javax.ejb.SessionContext;
 
 import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import service.UserEJB;
 import service.authentication.AuthenticationEJB;
 import testutil.fakesession.FakeSessionContext;
 
-@RunWith(MockitoJUnitRunner.class)
 public class JUnitTestBase {
 	protected static SessionContext fakeSessionContext = spy(new FakeSessionContext());
 	protected static AuthenticationEJB authenticationEJB = spy(new AuthenticationEJB());

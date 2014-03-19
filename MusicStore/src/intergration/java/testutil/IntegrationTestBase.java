@@ -9,8 +9,6 @@ import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import service.AlbumEJB;
 import service.ArtistEJB;
@@ -23,7 +21,6 @@ import service.authentication.AuthenticationEJB;
 import testutil.fakeentity.FakeEntity;
 import testutil.fakeentity.FakeEntityEJB;
 
-@RunWith(MockitoJUnitRunner.class)
 public class IntegrationTestBase {
 	protected final static AbstractFacade<FakeEntity> abstractFacade = spy(new FakeEntityEJB());
 	protected final static AlbumEJB albumEJB = spy(new AlbumEJB());

@@ -33,11 +33,11 @@
 			<version>4.11</version>
 		</dependency>
 		<!-- SELENIUM -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>2.39.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.seleniumhq.selenium</groupId> -->
+<!-- 			<artifactId>selenium-java</artifactId> -->
+<!-- 			<version>2.39.0</version> -->
+<!-- 		</dependency> -->
 		<!-- DERBY -->
 		<dependency>
 			<groupId>org.apache.derby</groupId>
@@ -81,6 +81,30 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <terse>false</terse>
+                    <echo>true</echo>
+                    <debug>true</debug>
+                    <glassfishDirectory>C:\glassfish4\glassfish</glassfishDirectory>
+                    <user>ilja</user>
+                    <adminPassword>123456</adminPassword>
+                    <domain>
+                        <name>domain1</name>
+                        <host>localhost</host>
+                        <adminPort>4848</adminPort>
+                    </domain>
+                    <components>
+                        <component>
+                            <name>${project.artifactId}</name>
+                            <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
+                        </component>
+                    </components>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 </project>

@@ -25,10 +25,6 @@ import javax.persistence.metamodel.Metamodel;
 
 import model.abstractions.EntityInterface;
 
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-@RunWith(MockitoJUnitRunner.class)
 public class FakeEntityManager implements EntityManager {
 	public FakeEntityManager() {
 		memoryDatabase.clear();
